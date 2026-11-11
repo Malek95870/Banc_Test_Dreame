@@ -269,8 +269,8 @@ section{display:grid;gap:16px}
 .warn{font-size:12.5px;color:var(--amber);background:var(--amber-soft);border-radius:6px;padding:5px 8px}
 .act{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .card .act .b{padding:7px 11px}
-.bar{height:6px;background:var(--card2);border-radius:3px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .2s linear}
+.bar{height:8px;background:var(--card2);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#4a98d8);border-radius:999px;transition:width .2s linear}
 .verdict{display:flex;flex-wrap:wrap;gap:6px}
 .card .verdict{border-top:1px solid var(--line);padding-top:10px}
 .card .verdict .b{flex:1 1 0;justify-content:center;padding:7px 8px}
@@ -909,14 +909,15 @@ body{background-attachment:scroll}
 :root[data-theme="dark"] .actile.c-orange .go{color:#f3b863!important}
 :root[data-theme="dark"] .actile.c-dark .go{color:#8cc3f0!important}
 /* Icônes du menu « Boîte à outils » colorées (une teinte par entrée) */
-.side #t-triage svg{color:#6d28d9!important}
-.side #t-quick svg{color:#c2570c!important}
-.side #t-full svg{color:#1e3a5f!important}
-.side #t-comp svg{color:#1f6fb0!important}
+.side #t-batt svg{color:#16a34a!important}
+.side #t-fanpa svg{color:#1f6fb0!important}
+.side #t-descrb svg{color:#0d9488!important}
+.side #t-descst svg{color:#0f766e!important}
 .side #t-mop svg{color:#0f766e!important}
 .side #t-calib svg{color:#0369a1!important}
 .side #t-guide svg{color:#047857!important}
 .side #t-panne svg{color:#c2570c!important}
+.side #t-errcodes svg{color:#b91c1c!important}
 :root[data-theme="dark"] .side #t-full svg{color:#8cc3f0!important}
 /* Boutons de test (« ▶ Tester ») bien plus visibles : pilule bleue vive, plus grande, halo permanent */
 .card .act .b.pri[data-run]{--g:linear-gradient(135deg,#1f6fb0,#4a98d8)!important;--gb:#1f6fb0!important;--gs:rgba(31,111,176,.38)!important;
@@ -990,6 +991,27 @@ h2{color:var(--ink);font-weight:700}
 /* ===== v41 : barre détartrage, modale, tables de rapport ===== */
 .descalebar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:10px 12px;border:1px dashed var(--line2);border-radius:12px;background:color-mix(in srgb,var(--teal) 6%,var(--panel))}
 .descalebar .dsclabel{font-weight:700;color:var(--ink);font-size:13px}
+.errbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.errbar input{flex:1 1 260px;min-width:200px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit}
+.errpills{display:flex;gap:6px;flex-wrap:wrap}
+.errpills .pill-f{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);font:600 13px var(--sans);cursor:pointer}
+.errpills .pill-f.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.errcat{margin:0 0 14px}
+.errcat h3{font:700 14px var(--sans);margin:12px 0 6px;color:var(--blue)}
+.errcat table td:first-child{white-space:nowrap;font-family:var(--mono);font-size:12.5px;font-weight:700}
+.errcat table td{vertical-align:top}
+#errList table td:first-child{font-family:var(--mono);font-size:12.5px;font-weight:700;white-space:nowrap}
+.sev{display:inline-block;padding:2px 8px;border-radius:999px;font:700 11px var(--sans);white-space:nowrap}
+.sev.mag{background:#dcfce7;color:#15803d}
+.sev.piece{background:#ffedd5;color:#c2570c}
+.sev.atelier{background:#fee2e2;color:#b91c1c}
+.sevleg{font-size:12.5px;color:var(--mute);margin:0 0 12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.eren{font-size:11px;color:var(--mute);font-style:italic;margin-top:2px}
+.errgo{display:inline-block;margin-top:4px;padding:3px 10px;border:1px solid var(--blue);border-radius:999px;background:var(--blue-soft);color:var(--blue);font:700 11.5px var(--sans);cursor:pointer;white-space:nowrap}
+.errgo:hover{background:var(--blue);color:#fff}
+.errscroll{position:fixed;right:16px;bottom:18px;display:flex;flex-direction:column;gap:6px;z-index:40}
+.errscroll button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:17px;line-height:1;cursor:pointer;box-shadow:var(--shadow);opacity:.8}
+.errscroll button:hover{opacity:1;background:var(--blue);color:#fff;border-color:var(--blue)}
 .b.c-teal{--g:linear-gradient(135deg,#0f766e,#2dd4bf);--gb:#0f766e;--gs:rgba(15,118,110,.3)}
 .descmodal{position:fixed;inset:0;z-index:200;background:rgba(10,18,30,.55);display:flex;align-items:center;justify-content:center;padding:18px;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .descmodal[hidden]{display:none}
@@ -1001,8 +1023,8 @@ h2{color:var(--ink);font-weight:700}
 .descsteps{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:14px;color:var(--ink)}
 .descsteps li{line-height:1.4}
 .descact{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
-.serfield{display:flex;align-items:center;gap:8px;margin:10px 0 2px;font-weight:600;font-size:13px;color:var(--ink);flex-wrap:wrap}
-.serfield input.s{flex:1;min-width:170px}
+.serfield{display:block;margin:10px 0 2px;font-weight:600;font-size:13px;color:var(--ink)}
+.serfield input.s{display:block;width:100%;box-sizing:border-box;margin-top:5px;min-width:0}
 .descrun{margin-top:12px}
 .descphase{font-weight:700;color:var(--ink);font-size:15px;margin-bottom:8px}
 .descbar{height:12px;border-radius:999px;background:var(--card2);overflow:hidden;border:1px solid var(--line)}
@@ -1014,6 +1036,9 @@ h2{color:var(--ink);font-weight:700}
 .report .rbadvice{margin-top:12px;padding:10px 12px;border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink)}
 .report .rbnote{margin-top:10px;font-size:12px;color:var(--mute)}
 .report .rbconf{margin-top:12px;padding-top:8px;border-top:1px solid var(--line);font-size:11px;color:var(--mute)}
+.report .rbadvice ul{font-size:13px}
+.report .rblogo{text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+.report .rblogo img{height:26px;width:auto;display:inline-block}
 /* ===== IMPRESSION : masquer le toast parasite + filigrane CONFIDENTIEL ===== */
 /* ===== v40 : badges d'en-tête façon logo DREAME + sélecteur de débit ===== */
 .titlebar .tchip,.titlebar .themebtn{background:#fff!important;border:1px solid #e1e7ef!important;border-radius:8px!important;box-shadow:0 1px 5px rgba(16,30,52,.16)!important;color:#1f2a37!important;padding:6px 12px!important;display:inline-flex;align-items:center;gap:6px}
@@ -1028,9 +1053,12 @@ h2{color:var(--ink);font-weight:700}
 .baudbox .baud-unit{color:#6b7785;font-weight:600}
 .baudbox .baud-caret{width:13px;height:13px;color:#6b7785;flex:none;margin-left:1px}
 .printwm{display:none}
+@page{margin:0}
 @media print{
   .toast{display:none!important}
   .printwm{display:block!important;position:fixed;top:44%;left:0;right:0;text-align:center;font:800 62pt var(--sans);color:rgba(207,62,62,.09);transform:rotate(-27deg);pointer-events:none;z-index:9999;letter-spacing:.08em}
+  .report{padding:14mm 13mm 16mm!important}
+  body.print-area #printArea .report{padding:14mm 13mm 16mm!important}
 }
 </style>
 
@@ -1059,14 +1087,15 @@ h2{color:var(--ink);font-weight:700}
   <div id="nav-serial">
     <div class="lbl toolshero" id="lbl-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a3.5 3.5 0 0 0 4.6 4.6l-8.3 8.3a2.3 2.3 0 0 1-3.2-3.2l8.3-8.3a3.5 3.5 0 0 0-1.4-1.4"/><path d="M6 6l3 3"/></svg>Boîte à outils</div>
     <nav class="tabs" role="tablist" id="nav-tools">
-      <button role="tab" id="t-triage" aria-selected="false" data-tab="triage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>Filtrage rapide N1/N2</button>
-      <button role="tab" id="t-quick" aria-selected="false" data-tab="quick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M9.5 2h5M18.7 6.3l1.3-1.3"/></svg>Tests rapides</button>
-      <button role="tab" id="t-full" aria-selected="false" data-tab="full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6v2.5H9zM8.5 13l2.5 2.5 4.5-5"/></svg>Test complet + rapport</button>
-      <button role="tab" id="t-comp" aria-selected="false" data-tab="comp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Composants un par un</button>
+      <button role="tab" id="t-batt" aria-selected="false" data-gobatt="1" title="Mesure batterie : SOH, SOC, résistance interne + rapport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="15" height="9" rx="2"/><path d="M21 11.5v2"/><path d="M7 12.5h3l1-2 1.5 4 1-2h1.5"/></svg>Santé batterie (SOH)</button>
+      <button role="tab" id="t-fanpa" aria-selected="false" data-gofanpa="1" title="Performance d'aspiration estimée en Pa, verdict + rapport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15l4.5-3.5"/><path d="M4 19h16"/></svg>Performance d'aspiration — Pa</button>
+      <button role="tab" id="t-descrb" aria-selected="false" data-descale="rb" title="Détartrage du circuit d'eau du robot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v5.5L5.3 16.4A2 2 0 0 0 7 19.5h10a2 2 0 0 0 1.7-3.1L14 8.5V3"/><path d="M8 14h8"/></svg>Détartrage robot</button>
+      <button role="tab" id="t-descst" aria-selected="false" data-descale="st" title="Détartrage du circuit d'eau de la station"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v5.5L5.3 16.4A2 2 0 0 0 7 19.5h10a2 2 0 0 0 1.7-3.1L14 8.5V3"/><path d="M8 14h8"/></svg>Détartrage station</button>
       <button role="tab" id="t-mop" aria-selected="false" data-tab="mop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20v-4.5h4.5"/></svg>Changeur serpillière</button>
       <button role="tab" id="t-calib" aria-selected="false" data-tab="calib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg>Calibrage &amp; réglages</button>
       <button role="tab" id="t-guide" aria-selected="false" data-tab="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>Guide d'utilisation</button>
       <button role="tab" id="t-panne" aria-selected="false" data-tab="panne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5a4 4 0 0 0 4.9 4.9L20 11l-9 9a2.1 2.1 0 0 1-3-3l9-9 .6.6a4 4 0 0 0-3.1-3.1"/></svg>Dépannage</button>
+      <button role="tab" id="t-errcodes" aria-selected="false" data-tab="errcodes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 8v5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/><path d="M16 3h5v5"/></svg>Codes erreurs</button>
     </nav>
     <div class="sidesum" aria-live="polite">
       <div class="t" id="sumTitle">Résultats</div>
@@ -1080,6 +1109,7 @@ h2{color:var(--ink);font-weight:700}
       <button role="tab" id="t-bldiag" aria-selected="false" data-tab="bldiag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>Diagnostic défauts</button>
       <button role="tab" id="t-blguide" aria-selected="false" data-tab="blguide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>Guide balai laveur</button>
       <button role="tab" id="t-blfaq" aria-selected="false" data-tab="blfaq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.7-.9 1.4v.6"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>FAQ balai laveur</button>
+      <button role="tab" id="t-blerrcodes" aria-selected="false" data-tab="errcodes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 8v5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/><path d="M16 3h5v5"/></svg>Codes erreurs</button>
     </nav>
   </div>
 </aside>
@@ -1342,6 +1372,20 @@ h2{color:var(--ink);font-weight:700}
   <div class="note"><b>Modèles concernés :</b> séries T, H15 mix. Le banc reprend le tableau de codes défaut de la note technique Dreame 0901.</div>
 </section>
 
+<section id="errcodes" hidden>
+  <div class="pagehead"><div><h1>Codes erreurs — robots &amp; balais</h1><p>Signification des codes / voyants Dreame (et MOVA) et <b>points de contrôle à faire avec le banc</b>. La numérotation exacte varie selon le modèle et le firmware — toujours confirmer le libellé dans <b>Dreamehome</b> / <b>FCT</b>.</p></div></div>
+  <div class="errbar noprint">
+    <input id="errSearch" type="search" placeholder="Rechercher un code ou un symptôme (ex. lidar, E6, brosse, batterie, station)…" aria-label="Rechercher un code erreur">
+    <div class="errpills" id="errPills">
+      <button type="button" class="pill-f on" data-errv="off">Codes officiels Dreame</button>
+      <button type="button" class="pill-f" data-errv="sub">Par sous-ensemble (banc)</button>
+    </div>
+  </div>
+  <div id="errList"></div>
+  <div class="errscroll noprint"><button type="button" id="errTop" title="Haut de page" aria-label="Haut">↑</button><button type="button" id="errBottom" title="Bas de page" aria-label="Bas">↓</button></div>
+  <div class="note"><b>Important :</b> selon la génération Dreame, un même défaut peut s'afficher sous forme de <b>numéro</b> (app Dreamehome), de <b>voyant/icône</b> (balais) ou de <b>message vocal</b>. Vue <b>Codes officiels Dreame</b> : 116 codes (robot 0–89, station de base 100–125, balais série E/H/F), avec sévérité et contrôle au banc. Vue <b>Par sous-ensemble</b> : regroupement par organe avec renvoi aux tests du banc. Vérifiez toujours le code exact affiché par l'appareil (Dreamehome / FCT).</div>
+</section>
+
 <section id="stats" hidden>
   <div class="pagehead"><div><h1>Statistiques atelier &amp; suivi centralisé</h1><p>Compteur de pannes par type calculé sur l'historique de ce poste, et partage du suivi via un dossier OneDrive / SharePoint.</p></div></div>
   <details class="syncfold noprint">
@@ -1367,7 +1411,7 @@ h2{color:var(--ink);font-weight:700}
   <span id="sbMode"></span>
   <span id="sbRes"></span>
   <span class="conflock">🔒 Usage professionnel strict — ne pas diffuser hors du groupe FNAC DARTY</span>
-  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v42.1</span></span>
+  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v48.0</span></span>
 </div>
 </div>
 <div class="descmodal noprint" id="descaleModal" hidden><div class="descbox" role="dialog" aria-modal="true" aria-labelledby="descTitle"><button class="descclose" id="descClose" type="button" aria-label="Fermer">✕</button><div id="descBody"></div></div></div>
@@ -1429,12 +1473,13 @@ const U=[
  {id:"so.ptc",dev:"st",m:"old",lvl:2,g:"Séchage",n:"Chauffage PTC serpillière",on:[H(10,"3C 43 45 78 3E"),H(12,"3C 43 47 01 3E")],off:[H(13,"3C 43 47 00 3E"),H(11,"3C 43 45 00 3E")],dur:25,see:"Souffle <b>tiède</b> (ventilateur lancé avec).",warn:"Jamais de chauffage sans ventilateur."},
 
  /* ---------- UNITÉS ROBOT (nouveau mode) ---------- */
- {id:"r.info",dev:"rb",m:"new",lvl:1,g:"Informations",n:"Infos appareil",on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Affiche modèle, versions et numéros de la carte."},
- {id:"r.batt",dev:"rb",m:"new",lvl:1,g:"Informations",n:"Mesure batterie",on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Lit <b>tension / niveau / température</b> de la batterie dans la réponse de l'appareil."},
+ {id:"r.info",dev:"rb",m:"new",lvl:1,g:"Informations",n:"Mesure et état carte mère",runLabel:"Mesurer",on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Affiche modèle, versions et numéros de la carte."},
+ {id:"r.batt",dev:"rb",m:"new",lvl:1,g:"Informations",n:"Mesure batterie",runLabel:"Mesurer",on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Lit <b>tension / niveau / température</b> de la batterie dans la réponse de l'appareil."},
  {id:"r.side",dev:"rb",m:"new",lvl:1,g:"Brosses",n:"Brosse latérale",on:[T(43,"side 12000")],off:[T(44,"side 0")],dur:5,see:"La brosse latérale <b>tourne</b>."},
  {id:"r.roll",dev:"rb",m:"new",lvl:1,g:"Brosses",n:"Brosse principale",on:[T(47,"roll 12000")],off:[T(48,"roll 0")],dur:5,see:"La brosse principale <b>tourne</b>."},
  {id:"r.fan",dev:"rb",m:"new",lvl:1,g:"Aspiration",n:"Aspiration normale",on:[T(34,"fan 900")],off:[T(36,"fan 0")],dur:5,see:"Bruit de turbine, <b>aspiration</b> sous le robot."},
  {id:"r.fanmax",dev:"rb",m:"new",lvl:1,g:"Aspiration",n:"Aspiration puissance max",on:[T(35,"fan 1100")],off:[T(36,"fan 0")],dur:4,see:"Turbine <b>nettement plus forte</b>."},
+ {id:"r.fanpa",dev:"rb",m:"new",lvl:1,g:"Aspiration",n:"Performance d'aspiration — Pa",runLabel:"Mesurer",on:[T(29,"info -a")],noOff:true,read:true,suction:true,dur:3,see:"Lance la turbine au max et <b>mesure l'appel de courant</b> pour donner une <b>capacité d'aspiration approximative (Pa)</b>, un verdict et un rapport.",warn:"Filtre et bac en place, conduit dégagé."},
  {id:"r.wheels",dev:"rb",m:"new",lvl:1,g:"Déplacement",n:"Roues motrices",on:[T(51,"move -lr 200 200")],off:[T(52,"move -s")],dur:4,see:"Les deux roues <b>tournent vers l'avant</b>.",warn:"Robot sur cales, roues dans le vide."},
  {id:"r.ir",dev:"rb",m:"new",lvl:1,g:"Station et recharge",n:"État station (ir)",on:[T(56,"ir")],noOff:true,read:true,dur:3,see:"Lit les <b>capteurs infrarouges</b> à l'avant du robot, ceux qui lui servent à <b>voir et trouver sa station</b>. <b>Ce qu'il se passe :</b> le robot renvoie des valeurs ; posez-le <b>face à la station alimentée (~1 m)</b> → des valeurs apparaissent, puis <b>masquez l'avant de la station avec la main</b> → les valeurs doivent <b>changer</b>. Si elles changent, les capteurs réagissent.",warn:"Robot face à la station alimentée, à ~1 m, émetteur dégagé."},
  {id:"r.ircode",dev:"rb",m:"new",lvl:1,g:"Station et recharge",n:"Signal de recharge (ircode)",on:[T(57,"ircode")],noOff:true,read:true,dur:3,see:"Lit le <b>code du faisceau infrarouge émis par la station</b> (le « phare » qui guide le robot vers la base pour se recharger). <b>Ce qu'il se passe :</b> face à la station alimentée, le robot capte ce signal et renvoie un/des codes. <b>Cachez l'émetteur de la station</b> puis relancez : le code doit <b>disparaître ou changer</b>. S'il réagit, le guidage de recharge fonctionne.",warn:"Station alimentée, robot face à l'émetteur, à ~1 m."},
@@ -1472,7 +1517,7 @@ const U=[
  {id:"r.steampump",dev:"rb",m:"new",lvl:3,g:"Aqua 20 vapeur",n:"Pompe vapeur",on:[T(93,"steam_pump -5")],off:[T(94,"steam_pump -0")],dur:4,see:"La pompe vapeur <b>tourne</b>."},
  {id:"r.steamheat",dev:"rb",m:"new",lvl:3,g:"Aqua 20 vapeur",n:"Chauffe vapeur",on:[T(95,"steam_heat -5")],off:[T(96,"steam_heat -0")],dur:10,see:"L'élément <b>chauffe</b>.",warn:"Chaud : ne pas toucher."},
  {id:"r.steamlamp",dev:"rb",m:"new",lvl:3,g:"Aqua 20 vapeur",n:"Voyant vapeur",on:[T(97,"steam_lamp -1")],off:[T(98,"steam_lamp -0")],dur:3,see:"Le <b>voyant vapeur</b> s'allume."},
- {id:"r.cali",dev:"rb",m:"new",lvl:3,g:"Calibrage",n:"Calibration courant robot",calib:true,on:[T(68,"state /caliVI")],noOff:true,read:true,dur:5,confirm:true,tool:true,see:"Calibration du courant. Uniquement si la procédure Dreame le demande.",warn:"Opération de réglage : double clic de confirmation."},
+ {id:"r.cali",dev:"rb",m:"new",lvl:3,g:"Calibrage",n:"Calibration courant robot",runLabel:"Lancer calibrage",calib:true,on:[T(68,"state /caliVI")],noOff:true,read:true,dur:5,confirm:true,tool:true,see:"Calibration du courant. Uniquement si la procédure Dreame le demande.",warn:"Opération de réglage : double clic de confirmation."},
  /* ---------- ROBOT ancien mode (hexa) ---------- */
  {id:"ro.core",dev:"rb",m:"old",lvl:1,g:"Informations",n:"Test carte mère",on:[T(3,"<CT >")],noOff:true,read:true,dur:4,see:"Lance l'<b>autotest de la carte mère</b> et affiche la réponse."},
  {id:"ro.wheels",dev:"rb",m:"old",lvl:1,g:"Déplacement",n:"Roues (vitesse haute)",on:[H(4,"3C 43 41 D3 FE D3 FE 3E")],off:[H(5,"3C 43 41 00 00 00 00 3E")],dur:4,see:"Les deux roues <b>tournent</b>.",warn:"Robot sur cales, roues dans le vide."},
@@ -1515,10 +1560,11 @@ const C=[
  {id:"cso.sechc",dev:"st",m:"old",lvl:2,n:"Séchage à air chaud",parts:P("so.fan","so.ptc"),on:[H(10,"3C 43 45 78 3E"),H(12,"3C 43 47 01 3E")],off:[H(13,"3C 43 47 00 3E"),H(11,"3C 43 45 00 3E")],dur:25,see:"Souffle <b>tiède</b> après 15 à 20 s."},
 
  /* ROBOT nouveau mode */
- {id:"cr.info",dev:"rb",m:"new",lvl:1,n:"Identification du robot",parts:P("r.info"),on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Le banc lit <b>modèle, n° de série et version</b> et <b>pré-remplit la fiche</b> automatiquement (si le format est reconnu)."},
- {id:"cr.batt",dev:"rb",m:"new",lvl:1,n:"🔋 Mesure batterie",parts:P("r.batt"),on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Le banc lit les <b>valeurs batterie</b> renvoyées par le robot (tension, niveau, température) et les affiche — comme la lecture batterie de FCT."},
+ {id:"cr.info",dev:"rb",m:"new",lvl:1,n:"Mesure et état carte mère",runLabel:"Mesurer",parts:P("r.info"),on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Le banc lit <b>modèle, n° de série et version</b> et <b>pré-remplit la fiche</b> automatiquement (si le format est reconnu)."},
+ {id:"cr.batt",dev:"rb",m:"new",lvl:1,n:"🔋 Mesure batterie",runLabel:"Mesurer",parts:P("r.batt"),on:[T(29,"info -a")],noOff:true,read:true,dur:4,see:"Le banc lit les <b>valeurs batterie</b> renvoyées par le robot (tension, niveau, température) et les affiche — comme la lecture batterie de FCT."},
  {id:"cr.asp",dev:"rb",m:"new",lvl:1,n:"Aspiration complète",parts:P("r.side","r.roll","r.fan"),on:[T(43,"side 12000"),T(47,"roll 12000"),T(34,"fan 900")],off:[T(36,"fan 0"),T(48,"roll 0"),T(44,"side 0")],dur:6,see:"Brosse latérale <b>et</b> brosse principale tournent, <b>aspiration</b> sous le robot."},
  {id:"cr.max",dev:"rb",m:"new",lvl:1,n:"Aspiration puissance max",parts:P("r.fanmax"),on:[T(35,"fan 1100")],off:[T(36,"fan 0")],dur:4,see:"Turbine <b>nettement plus forte</b> qu'en normal."},
+ {id:"cr.fanpa",dev:"rb",m:"new",lvl:1,n:"Performance d'aspiration — Pa",runLabel:"Mesurer",parts:P("r.fanpa"),on:[T(29,"info -a")],noOff:true,read:true,suction:true,dur:3,see:"Lance la turbine au max et <b>mesure l'appel de courant</b> → capacité d'aspiration <b>approximative (Pa)</b>, verdict et rapport.",warn:"Filtre et bac en place, conduit dégagé."},
  {id:"cr.roues",dev:"rb",m:"new",lvl:1,n:"Roues motrices",parts:P("r.wheels"),on:[T(51,"move -lr 200 200")],off:[T(52,"move -s")],dur:4,see:"Les deux roues tournent <b>vers l'avant, à la même vitesse</b>.",warn:"Robot sur cales, roues dans le vide."},
  {id:"cr.base",dev:"rb",m:"new",lvl:1,n:"Détection station et recharge",parts:P("r.ir","r.ircode"),on:[T(56,"ir"),T(57,"ircode")],noOff:true,read:true,dur:4,see:"Robot à ~1 m <b>face à la station alimentée</b>. Le banc lit les capteurs IR et vous guide en <b>3 points</b> pour conclure si les capteurs sont <b>conformes</b>.",warn:"Station alimentée, émetteur IR dégagé."},
  {id:"cr.serp",dev:"rb",m:"new",lvl:2,n:"Serpillage (eau + rotation)",parts:P("r.pump","r.mop"),on:[T(30,"pump -6"),T(37,"mop -lr 12000")],off:[T(38,"mop -lr -12000"),T(31,"pump -0")],dur:6,see:"Les serpillières <b>tournent et s'humidifient</b>.",warn:"Réservoir d'eau du robot rempli."},
@@ -1768,7 +1814,11 @@ let fullSel=store.get("fullSel",{});
 let expMode=store.get("expMode",false);
 const expList=()=>expMode?EXP.filter(c=>c.dev===prof.dev):[];
 const fullList=()=>combosOf().concat(expList());
-const selCombos=()=>fullList().filter(c=>fullSel[c.id]!==false);
+/* Test universel : par défaut, seules les fonctions essentielles sont cochées (robot) */
+const FULL_UNIV_RB=["cr.asp","cr.max","cr.batt","cr.bump","cr.ldsspin","cr.cliff","cr.fanpa"];
+const fullDefault=c=>prof.dev==="rb"?FULL_UNIV_RB.includes(c.id):true;
+const fullChecked=c=>(c.id in fullSel)?fullSel[c.id]!==false:fullDefault(c);
+const selCombos=()=>fullList().filter(c=>fullChecked(c));
 function setFullSel(id,on){fullSel[id]=on;store.set("fullSel",fullSel);}
 function setAllFullSel(on){fullList().forEach(c=>fullSel[c.id]=on);store.set("fullSel",fullSel);}
 function updateSummary(){
@@ -1808,11 +1858,15 @@ async function runTest(t,alt,ui,ref){
     lines=S.cap;S.cap=null}
   delete runs[t.id];return lines;
 }
-function progressUI(box){
+function progressUI(box,t0){
+  const calib=t0&&t0.calib;
   box.innerHTML=`<div class="bar"><i></i></div><div class="st"><span class="rs">Démarrage…</span></div>`;
   const bar=box.querySelector(".bar i"),rs=box.querySelector(".rs");
-  return {tick(rest,tot,label){bar.style.width=(100*(1-rest/tot))+"%";rs.innerHTML=`<b>${esc(label)}</b> · arrêt dans ${Math.ceil(rest)} s`},
-          end(t,lines){bar.style.width="100%";rs.innerHTML=(t.read?"Réponse reçue ci-dessous. ":"")+"👁️ <b>Avez-vous vu le composant réagir correctement ?</b>";
+  return {tick(rest,tot,label){bar.style.width=(100*(1-rest/tot))+"%";
+            rs.innerHTML=calib?`<b>⏳ Calibrage en cours — ne pas manipuler l'appareil, merci</b> · ${Math.ceil(rest)} s`:`<b>${esc(label)}</b> · arrêt dans ${Math.ceil(rest)} s`},
+          end(t,lines){bar.style.width="100%";
+            if(t.calib){rs.innerHTML="✅ <b>Calibrage réussi</b>";}
+            else{rs.innerHTML=(t.read?"Réponse reçue ci-dessous. ":"")+"👁️ <b>Avez-vous vu le composant réagir correctement ?</b>";}
             if(t.read){const r=document.createElement("div");box.appendChild(r);fillReadPanel(r,t,lines)}}};
 }
 function manualHTML(t,alt){const {on,off}=cmdsOf(t,alt);
@@ -1830,7 +1884,7 @@ function cardHTML(t,isCombo){
     <div class="see">${t.see}</div>
     ${t.warn?`<div class="warn">⚠ ${esc(t.warn)}</div>`:""}
     <div class="act">
-      <button class="b pri" type="button" data-run="${t.id}">▶ ${isCombo?"Lancer le test":"Tester"} · ${durOf(t)} s</button>
+      <button class="b pri" type="button" data-run="${t.id}">▶ ${t.runLabel||(isCombo?"Lancer le test":"Tester")} · ${durOf(t)} s</button>
       ${t.alt?`<button class="b" type="button" data-run="${t.id}" data-alt="1">Essai 2</button>`:""}
       ${pill(t.id)}
     </div>
@@ -1852,7 +1906,7 @@ function rerenderCard(id){const el=$("card-"+id);if(!el)return;const t=byId(id);
 async function runInBox(t,alt,box){
   box.hidden=false;
   if(!connected()){box.innerHTML=manualHTML(t,alt);return}
-  const ui=progressUI(box);
+  const ui=progressUI(box,t);
   box.insertAdjacentHTML("beforeend",`<div class="act" style="margin-top:6px"><button class="b ghost" type="button" data-ext="${t.id}">+15 s</button><button class="b ghost" type="button" data-stopid="${t.id}">Arrêter</button></div>`);
   const lines=await runTest(t,alt,ui);ui.end(t,lines);
 }
@@ -1932,7 +1986,7 @@ function renderFullIntro(){
   $("fullNote").innerHTML=`${prof.dev==="rb"?`<div class="alert beta" style="margin-bottom:10px"><b>⚠️ Diagnostic robot en phase BÊTA.</b> Le banc active chaque fonction ; <b>c'est vous qui jugez</b> en observant. Résultat imprécis ? Complétez avec <b>FCT constructeur</b>.</div>`:""}<b>Choisissez les fonctions à tester</b>, puis démarrez. Chaque fonction démarre seule ; <b>vous observez</b> et répondez <b>Fonctionne</b>, <b>Ne fonctionne pas</b> ou <b>Absent</b> — le banc n'évalue pas lui-même. Sur « Ne fonctionne pas », il propose d'isoler la pièce en cause. ${prof.dev==="rb"?"Robot sur cales, réservoir d'eau rempli.":"Réservoirs en place avec de l'eau propre."}`;
   const box=$("fullSelBox");if(!box)return;
   const byLv={1:[],2:[],3:[]};l.forEach(c=>byLv[c.lvl].push(c));
-  const item=c=>`<label class="selitem ${fullSel[c.id]!==false?"on":""}"><input type="checkbox" data-sel="${c.id}" ${fullSel[c.id]!==false?"checked":""}><span>${esc(c.n)}</span></label>`;
+  const item=c=>`<label class="selitem ${fullChecked(c)?"on":""}"><input type="checkbox" data-sel="${c.id}" ${fullChecked(c)?"checked":""}><span>${esc(c.n)}</span></label>`;
   box.innerHTML=`<div class="selhead">
       <div><b>${sel}</b> / ${all.length} test(s) sélectionné(s)</div>
       <div class="act">
@@ -2021,6 +2075,206 @@ function renderCalib(){
     </div></details>`).join("");
   $("calibList").innerHTML=matrix+`<div class="grp"><h2>Procédures de calibrage <small>${CALIB.length} procédures · guide BIT</small></h2>${procs}</div>`;
 }
+/* ============================================================ CODES ERREURS */
+const ERRCODES=[
+ /* ---------- ROBOTS : navigation ---------- */
+ {dev:"rb",cat:"Navigation & capteurs",code:"Lidar / LDS",sig:"Tourelle laser (LDS) obstruée, grippée ou moteur LDS HS → cartographie impossible, le robot tourne en rond ou refuse de partir.",ctrl:"Banc : <b>Rotation du lidar</b> + <b>Lidar — état (lecture)</b>. Vérifier une rotation régulière, nettoyer la coiffe. Lidar rétractable : tester le <b>levage</b>. Rien ne tourne → ensemble LDS / carte. Après remplacement : <b>calibrage LDS / SCALE</b>."},
+ {dev:"rb",cat:"Navigation & capteurs",code:"Pare-chocs (bumper)",sig:"Pare-chocs enfoncé ou qui ne revient pas → le robot croit heurter un obstacle en permanence (recule / s'arrête).",ctrl:"Banc : <b>Pare-chocs (bumper)</b>. Presser le pare-chocs : clics francs et retour complet. Dégager poussière / cheveux dans l'interstice."},
+ {dev:"rb",cat:"Navigation & capteurs",code:"Capteurs de vide (anti-chute / cliff)",sig:"Capteurs de chute encrassés, sol foncé/brillant ou capteur HS → le robot croit être au bord du vide et s'arrête.",ctrl:"Banc : <b>Capteurs de vide (Cliff)</b>. Nettoyer les capteurs sous le robot, tester sur sol clair. Persiste → capteur / carte, <b>calibrage TOF (chute)</b>."},
+ {dev:"rb",cat:"Navigation & capteurs",code:"Capteur de bord / paroi",sig:"Capteur latéral de suivi de bord (Edge TOF) encrassé ou en défaut → suit mal les murs.",ctrl:"Banc : <b>Capteur ToF</b>. Nettoyer le capteur (côté droit). Après remplacement carte/capteur : <b>calibrage Edge TOF</b> (xtalk + offset)."},
+ {dev:"rb",cat:"Navigation & capteurs",code:"Caméra / capteur optique",sig:"Caméra frontale ou capteur de navigation au sol masqué, sale, ou film de protection oublié.",ctrl:"Nettoyer l'objectif / le capteur. Après remplacement : <b>calibrage double caméra (Unical)</b>."},
+ {dev:"rb",cat:"Navigation & capteurs",code:"Robot soulevé / coincé",sig:"Robot soulevé pendant le cycle, roues dans le vide, ou bloqué sous un meuble.",ctrl:"Banc : <b>Roues motrices</b> (robot sur cales). Rotation libre des deux roues et du galet avant."},
+ {dev:"rb",cat:"Navigation & capteurs",code:"Champ magnétique / mur virtuel",sig:"Robot près d'une bande magnétique ou d'un mur virtuel.",ctrl:"Éloigner la source magnétique ; aucun défaut matériel."},
+ /* ---------- ROBOTS : brosses & roues ---------- */
+ {dev:"rb",cat:"Brosses & déplacement",code:"Brosse principale bloquée",sig:"Cheveux / fils enroulés, roulement grippé ou moteur de brosse en surintensité.",ctrl:"Banc : <b>Aspiration complète</b> (ou brosse principale seule). Démonter, dégager les paliers, vérifier rotation libre."},
+ {dev:"rb",cat:"Brosses & déplacement",code:"Brosse latérale bloquée",sig:"Brosse latérale entravée (cheveux à l'axe) ou moteur HS.",ctrl:"Banc : tester la <b>brosse latérale</b>. Dégager l'axe, remplacer si déformée."},
+ {dev:"rb",cat:"Brosses & déplacement",code:"Roue gauche / droite bloquée",sig:"Roue motrice grippée, débris sur l'axe, ou moteur / réducteur en surintensité.",ctrl:"Banc : <b>Roues motrices</b>. Robot sur cales : rotation à vide des deux roues, même vitesse."},
+ /* ---------- ROBOTS : aspiration ---------- */
+ {dev:"rb",cat:"Aspiration",code:"Turbine / aspiration — surintensité",sig:"Conduit obstrué, filtre colmaté, bac plein ou moteur turbine fatigué → aspiration faible.",ctrl:"Banc : <b>Performance d'aspiration — Pa</b> + <b>Aspiration puissance max</b>. Comparer la capacité estimée au Pa annoncé. Contrôler filtre / bac / conduit / joints."},
+ {dev:"rb",cat:"Aspiration",code:"Bac à poussière absent / plein",sig:"Bac mal clipsé, capteur de bac, ou bac plein.",ctrl:"Reclipser le bac, nettoyer les contacts. Vider / remplacer le filtre, puis re-tester l'aspiration."},
+ {dev:"rb",cat:"Aspiration",code:"Filtre colmaté / manquant",sig:"Filtre HEPA saturé ou absent → chute d'aspiration et surintensité turbine.",ctrl:"Nettoyer / remplacer le filtre. Re-mesurer avec <b>Performance d'aspiration — Pa</b>."},
+ /* ---------- ROBOTS : eau & serpillière ---------- */
+ {dev:"rb",cat:"Eau & serpillière",code:"Réservoir d'eau propre vide / non détecté",sig:"Réservoir vide, flotteur bloqué ou contact de détection HS.",ctrl:"Remplir, vérifier le flotteur. Banc : <b>Pompe d'injection d'eau</b> + <b>Serpillage</b>."},
+ {dev:"rb",cat:"Eau & serpillière",code:"Eaux sales pleines / non détectées",sig:"Bac eaux sales plein ou mal détecté (station).",ctrl:"Vider / reclipser le bac eaux sales de la station, nettoyer les contacts."},
+ {dev:"rb",cat:"Eau & serpillière",code:"Module serpillière non détecté / bloqué",sig:"Module mop mal monté, contacts, ou mécanisme de levage grippé.",ctrl:"Banc : <b>Serpillage</b>, <b>Levage des serpillières</b>, <b>Rouleau serpillière complet</b>. Vérifier montage et contacts."},
+ {dev:"rb",cat:"Eau & serpillière",code:"Pompe à eau en défaut",sig:"Désamorçage (bulle d'air), tuyau pincé ou pompe HS.",ctrl:"Banc : <b>Pompe d'injection d'eau</b> / <b>Pompe eaux sales</b>. Contrôler circuit ; détartrer si entartré."},
+ /* ---------- ROBOTS : station ---------- */
+ {dev:"rb",cat:"Station d'accueil",code:"Sac auto-vidage plein / moteur surintensité",sig:"Sac d'auto-vidage saturé ou conduit d'aspiration de la station bouché.",ctrl:"Remplacer le sac, dégager le conduit d'auto-vidage de la station."},
+ {dev:"rb",cat:"Station d'accueil",code:"Station non détectée / signal IR",sig:"Station non alimentée, contacts sales ou émetteur IR masqué → le robot ne trouve pas sa base.",ctrl:"Banc : <b>Détection station et recharge</b> (lecture IR, guide 3 points). Nettoyer contacts, vérifier l'alimentation de la station."},
+ {dev:"rb",cat:"Station d'accueil",code:"Détartrage / circuit d'eau station",sig:"Entartrage du circuit d'eau, pompe de la station en peine.",ctrl:"Boîte à outils : <b>Détartrage station</b>, puis rincer à l'eau claire."},
+ /* ---------- ROBOTS : batterie & carte ---------- */
+ {dev:"rb",cat:"Batterie & carte mère",code:"Batterie — température hors plage",sig:"Batterie trop chaude ou trop froide (hors ≈ 10–40 °C) → charge / cycle bloqué.",ctrl:"Laisser revenir à température ambiante. Banc : <b>Santé batterie (SOH)</b>."},
+ {dev:"rb",cat:"Batterie & carte mère",code:"Défaut batterie / ne charge pas",sig:"Cellule fatiguée, BMS ou contacts → autonomie faible, arrêts en cours de cycle.",ctrl:"Banc : <b>Santé batterie (SOH)</b> (SOH, SOC, résistance interne). Charger 12 h ; SOH bas → remplacer la batterie."},
+ {dev:"rb",cat:"Batterie & carte mère",code:"Erreur de charge / contacts",sig:"Contacts robot ↔ station encrassés ou adaptateur HS.",ctrl:"Nettoyer les contacts, vérifier l'adaptateur et l'alimentation de la station."},
+ {dev:"rb",cat:"Batterie & carte mère",code:"Erreur interne / communication carte",sig:"Défaut interne, firmware, ou carte mère après remplacement d'un composant.",ctrl:"Reset + mise à jour firmware. Banc : <b>Mesure et état carte mère</b>. Après remplacement carte/moteur : <b>Calibration courant robot</b>."},
+ /* ---------- BALAIS LAVEURS : voyants ---------- */
+ {dev:"bl",cat:"Voyants (icônes écran)",code:"Réservoir eau propre vide",sig:"Plus d'eau propre → le lavage s'interrompt.",ctrl:"Remplir le réservoir d'eau propre."},
+ {dev:"bl",cat:"Voyants (icônes écran)",code:"Bac eaux sales non installé",sig:"Bac eaux sales absent ou mal clipsé.",ctrl:"Installer / reclipser le bac eaux sales."},
+ {dev:"bl",cat:"Voyants (icônes écran)",code:"Bac eaux sales plein",sig:"Bac eaux sales plein → aspiration/lavage coupés.",ctrl:"Vider et rincer le bac eaux sales <b>et</b> son filtre."},
+ {dev:"bl",cat:"Voyants (icônes écran)",code:"Brosse rouleau bloquée",sig:"Cheveux / débris enroulés sur le rouleau.",ctrl:"Nettoyer le rouleau avec la brosse fournie ; vérifier la rotation libre."},
+ {dev:"bl",cat:"Voyants (icônes écran)",code:"Brosse rouleau non installée",sig:"Rouleau absent ou mal monté → aspiration faible.",ctrl:"Remonter correctement le rouleau."},
+ {dev:"bl",cat:"Voyants (icônes écran)",code:"Conduit bouché",sig:"Tube ou filtre obstrué → perte d'aspiration.",ctrl:"Vérifier et nettoyer le filtre ; nettoyer le tube (section « Clean the Tube » du manuel)."},
+ /* ---------- BALAIS LAVEURS : codes alphanumériques ---------- */
+ {dev:"bl",cat:"Codes affichés (officiel Dreame)",code:"E1 · EE · EF",sig:"Erreur moteur (aspiration / brosse).",ctrl:"Retirer de la base, éteindre, rallumer après 15 s. Nettoyer le filtre du bac eaux sales. Persiste → SAV (moteur)."},
+ {dev:"bl",cat:"Codes affichés (officiel Dreame)",code:"E2 · E3 · E7 · E8 · E9",sig:"Défaut batterie / BMS.",ctrl:"Faire un cycle complet de charge avec l'adaptateur d'origine. Persiste → remplacement batterie / SAV."},
+ {dev:"bl",cat:"Codes affichés (officiel Dreame)",code:"E4 · E5",sig:"Adaptateur secteur incompatible.",ctrl:"Utiliser l'adaptateur d'origine Dreame."},
+ {dev:"bl",cat:"Codes affichés (officiel Dreame)",code:"E6",sig:"Surchauffe batterie.",ctrl:"Laisser refroidir la batterie avant réutilisation."},
+ {dev:"bl",cat:"Codes affichés (officiel Dreame)",code:"H1 · H2 · H3 · H4 · H5 · H6 · H7",sig:"Codes constructeur (H12 Dual / M12 / H12 Pro) — défauts capteur / communication / firmware selon modèle.",ctrl:"Retirer de la base, éteindre, replacer sur la base. Vérifier le libellé dans le manuel du modèle. Persiste → SAV."},
+ {dev:"bl",cat:"Codes affichés (officiel Dreame)",code:"F1 → F6",sig:"Codes constructeur (selon modèle) — défauts internes / firmware.",ctrl:"Redémarrer hors base (15 s). Confirmer dans le manuel du modèle ; persiste → SAV."},
+];
+const ERR_OFF=[
+ {c:0,fr:"Indicateurs d'état de santé",en:"Health status indicators",sev:"mag",g:"rb",ctrl:"Message d'état — aucun défaut."},
+ {c:1,fr:"Détection de chute",en:"Fall detection",sev:"piece",g:"rb",ctrl:"Banc : Capteurs de vide (Cliff). Nettoyer les capteurs de chute."},
+ {c:2,fr:"Veuillez nettoyer le capteur de vide",en:"Please try cleaning the cliff sensor",sev:"piece",g:"rb",ctrl:"Banc : Capteurs de vide (Cliff). Nettoyer le capteur de vide."},
+ {c:3,fr:"Détection du pare-chocs",en:"Bumper detection",sev:"piece",g:"rb",ctrl:"Banc : Pare-chocs (bumper). Vérifier clics francs et retour complet."},
+ {c:4,fr:"Détection d'inclinaison",en:"Attitude detection",sev:"piece",g:"rb",ctrl:"Robot à plat. Banc : Mesure et état carte mère (inclinaison / IMU)."},
+ {c:5,fr:"Pare-chocs déclenché de façon répétée",en:"Bumper repeatedly triggered",sev:"piece",g:"rb",ctrl:"Banc : Pare-chocs. Dégager l'interstice, contrôler le retour."},
+ {c:6,fr:"Chutes répétées détectées",en:"Repeated falls triggered",sev:"piece",g:"rb",ctrl:"Banc : Capteurs de vide. Nettoyer, tester sur sol clair."},
+ {c:7,fr:"Flux optique anormal",en:"Optical flow abnormal",sev:"piece",g:"rb",ctrl:"Nettoyer le capteur de flux optique (dessous)."},
+ {c:8,fr:"Vérification présence du bac à poussière",en:"Dust box installed check",sev:"mag",g:"rb",ctrl:"Reclipser le bac à poussière, nettoyer les contacts."},
+ {c:9,fr:"Vérification présence du réservoir d'eau",en:"Water tank installed check",sev:"mag",g:"rb",ctrl:"Reclipser le réservoir d'eau."},
+ {c:10,fr:"Manque d'eau",en:"No water",sev:"mag",g:"rb",ctrl:"Remplir le réservoir. Banc : Pompe d'injection d'eau."},
+ {c:11,fr:"Bac à poussière plein",en:"Dust box full",sev:"mag",g:"rb",ctrl:"Vider le bac. Banc : Performance d'aspiration — Pa."},
+ {c:12,fr:"Anomalie brosse principale",en:"Main brush abnormal",sev:"piece",g:"rb",ctrl:"Banc : brosse principale (Aspiration complète). Dégager cheveux / paliers."},
+ {c:13,fr:"Surintensité brosse latérale",en:"Side brush overcurrent detection",sev:"piece",g:"rb",ctrl:"Banc : brosse latérale. Dégager l'axe (surintensité)."},
+ {c:14,fr:"Surintensité du ventilateur d'aspiration",en:"Blower overcurrent detection",sev:"piece",g:"rb",ctrl:"Banc : Performance d'aspiration — Pa + Aspiration max. Filtre / conduit."},
+ {c:15,fr:"Détection roue motrice gauche",en:"Left drive wheel detection",sev:"piece",g:"rb",ctrl:"Banc : Roues motrices. Roue gauche : rotation libre."},
+ {c:16,fr:"Détection roue motrice droite",en:"Right drive wheel detection",sev:"piece",g:"rb",ctrl:"Banc : Roues motrices. Roue droite : rotation libre."},
+ {c:17,fr:"Blocage en rotation détecté",en:"Rotation jam detection",sev:"piece",g:"rb",ctrl:"Banc : Roues motrices. Blocage en rotation — dégager."},
+ {c:18,fr:"Blocage en avance détecté",en:"Forward jam detection",sev:"piece",g:"rb",ctrl:"Banc : Roues motrices. Blocage en avance — dégager."},
+ {c:19,fr:"Acquisition du signal de charge",en:"Charging signal acquisition",sev:"piece",g:"rb",ctrl:"Nettoyer les contacts de charge ; vérifier base alimentée."},
+ {c:20,fr:"Batterie faible",en:"Low battery",sev:"mag",g:"rb",ctrl:"Charger. Banc : Santé batterie (SOH)."},
+ {c:21,fr:"Anomalie de charge détectée",en:"Charging anomaly detection",sev:"atelier",g:"rb",ctrl:"ATELIER : anomalie de charge. Banc : Santé batterie (SOH) + contacts."},
+ {c:22,fr:"Niveau de batterie (%)",en:"Battery percentage",sev:"mag",g:"rb",ctrl:"Message info — niveau batterie."},
+ {c:23,fr:"Anomalie de communication interne (heartbeat)",en:"Heartbeat abnormality",sev:"atelier",g:"rb",ctrl:"ATELIER : communication interne (heartbeat). Banc : Mesure carte mère ; calibrage courant."},
+ {c:24,fr:"Caméra obstruée",en:"Camera occlusion detection",sev:"piece",g:"rb",ctrl:"Nettoyer l'objectif de la caméra (obstruée)."},
+ {c:25,fr:"Robot déplacé ou soulevé",en:"Robot was moved or lifted",sev:"mag",g:"rb",ctrl:"Reposer le robot au sol."},
+ {c:26,fr:"Flux optique obstrué",en:"Optical flow is blocked",sev:"piece",g:"rb",ctrl:"Nettoyer le capteur de flux optique."},
+ {c:27,fr:"Capteur infrarouge obstrué",en:"Infrared is blocked",sev:"piece",g:"rb",ctrl:"Nettoyer le capteur infrarouge."},
+ {c:28,fr:"Base de charge sans alimentation",en:"Charging dock is out of power",sev:"mag",g:"rb",ctrl:"Base sans alimentation — vérifier alim / adaptateur."},
+ {c:29,fr:"Erreur batterie",en:"Battery error",sev:"atelier",g:"rb",ctrl:"ATELIER : erreur batterie. Banc : Santé batterie (SOH) ; remplacer si SOH bas."},
+ {c:30,fr:"Vitesse ventilateur anormale",en:"Abnormal blower speed",sev:"piece",g:"rb",ctrl:"Banc : Aspiration max / Performance d'aspiration — Pa (vitesse turbine)."},
+ {c:31,fr:"Vitesse roue gauche anormale",en:"Abnormal left wheel speed",sev:"piece",g:"rb",ctrl:"Banc : Roues motrices (vitesse roue gauche)."},
+ {c:32,fr:"Vitesse roue droite anormale",en:"Abnormal right wheel speed",sev:"piece",g:"rb",ctrl:"Banc : Roues motrices (vitesse roue droite)."},
+ {c:33,fr:"Anomalie accéléromètre (BMI055)",en:"Accelerometer abnormality (BMI055)",sev:"atelier",g:"rb",ctrl:"ATELIER : accéléromètre (BMI055). Banc : carte mère ; calibrage SCALE."},
+ {c:34,fr:"Erreur gyroscope (BMI055)",en:"Gyroscope error (BMI055)",sev:"atelier",g:"rb",ctrl:"ATELIER : gyroscope (BMI055). Banc : carte mère ; calibrage SCALE."},
+ {c:35,fr:"Erreur gyroscope (XV7001)",en:"Gyroscope error (XV7001)",sev:"atelier",g:"rb",ctrl:"ATELIER : gyroscope (XV7001). Banc : carte mère ; calibrage SCALE."},
+ {c:36,fr:"Anomalie magnétique côté gauche",en:"Left geomagnetic anomaly",sev:"piece",g:"rb",ctrl:"Éloigner les sources magnétiques (capteur géomagnétique gauche)."},
+ {c:37,fr:"Anomalie magnétique côté droit",en:"Right geomagnetic anomaly",sev:"piece",g:"rb",ctrl:"Éloigner les sources magnétiques (capteur géomagnétique droit)."},
+ {c:38,fr:"Anomalie du flux optique",en:"Optical flow anomaly",sev:"piece",g:"rb",ctrl:"Nettoyer le capteur de flux optique."},
+ {c:39,fr:"Anomalie infrarouge",en:"Infrared anomaly",sev:"piece",g:"rb",ctrl:"Nettoyer le capteur infrarouge."},
+ {c:40,fr:"Erreur caméra",en:"Camera error",sev:"atelier",g:"rb",ctrl:"ATELIER : erreur caméra. Nettoyer ; calibrage double caméra (Unical)."},
+ {c:41,fr:"Champ magnétique fort détecté",en:"Strong magnetic field detected",sev:"mag",g:"rb",ctrl:"Éloigner la bande magnétique / mur virtuel."},
+ {c:42,fr:"Erreur pompe à eau",en:"Water pump error",sev:"piece",g:"rb",ctrl:"Banc : Pompe d'injection d'eau. Contrôler le circuit."},
+ {c:43,fr:"Incohérence horloge temps réel (RTC)",en:"RTC inconsistency",sev:"atelier",g:"rb",ctrl:"ATELIER : incohérence RTC. Banc : Mesure et état carte mère."},
+ {c:44,fr:"Touche AUTO maintenue enfoncée",en:"Press and hold the AUTO button",sev:"mag",g:"rb",ctrl:"Relâcher la touche AUTO."},
+ {c:45,fr:"Erreur alimentation 3,3 V",en:"3.3V power supply error",sev:"atelier",g:"rb",ctrl:"ATELIER : alimentation 3,3 V. Banc : Mesure et état carte mère."},
+ {c:46,fr:"La caméra ne traite pas les images",en:"Camera does not process images",sev:"atelier",g:"rb",ctrl:"ATELIER : la caméra ne traite pas les images. Reset / firmware ; carte."},
+ {c:47,fr:"Partition hors limites de la carte",en:"Partition out of bounds",sev:"piece",g:"rb",ctrl:"Hors limites de carte — refaire le mapping."},
+ {c:48,fr:"Erreur capteur LDS (LiDAR)",en:"LDS sensor error",sev:"piece",g:"rb",ctrl:"Banc : Rotation du lidar / Lidar — état. Nettoyer la coiffe ; calibrage LDS."},
+ {c:49,fr:"Pare-chocs LDS bloqué",en:"LDS bumper stuck",sev:"piece",g:"rb",ctrl:"Banc : Pare-chocs du LDS — dégager."},
+ {c:50,fr:"Erreur pompe à eau",en:"Water pump error",sev:"piece",g:"rb",ctrl:"Banc : Pompe d'injection d'eau. Contrôler le circuit."},
+ {c:51,fr:"Filtre HEPA bouché",en:"HEPA filter blocked",sev:"piece",g:"rb",ctrl:"Nettoyer / remplacer le filtre HEPA. Banc : Performance d'aspiration — Pa."},
+ {c:52,fr:"Bloqué en déplacement",en:"Stuck while moving",sev:"piece",g:"rb",ctrl:"Dégager le robot ; Banc : Roues motrices."},
+ {c:53,fr:"Caméra TOF hors ligne",en:"TOF camera offline",sev:"piece",g:"rb",ctrl:"Banc : Capteur ToF. Caméra TOF hors ligne — contrôler nappe / connecteur."},
+ {c:54,fr:"Erreur capteur de bordure",en:"Edge sensor error",sev:"piece",g:"rb",ctrl:"Banc : Capteur ToF (bordure). Calibrage Edge TOF."},
+ {c:55,fr:"Démarrage réservoir mode tapis",en:"Carpet water tank start",sev:"mag",g:"rb",ctrl:"Message info — mode tapis."},
+ {c:56,fr:"Erreur capteur laser linéaire",en:"Line laser sensor error",sev:"piece",g:"rb",ctrl:"Banc : laser linéaire. Calibrage laser linéaire."},
+ {c:57,fr:"Caméra ou laser obstrué",en:"Camera or laser blocked",sev:"piece",g:"rb",ctrl:"Nettoyer caméra / laser ; dégager."},
+ {c:58,fr:"Erreur capteur ultrasonique",en:"Ultrasonic sensor error",sev:"piece",g:"rb",ctrl:"Banc : Capteur ultrason — état."},
+ {c:59,fr:"Zone interdite ou mur virtuel détecté",en:"Restricted area or virtual wall detected",sev:"mag",g:"rb",ctrl:"Supprimer la zone interdite / le mur virtuel."},
+ {c:60,fr:"SLAM : échec de localisation, sortie nécessaire",en:"SLAM detected a failure requiring escape",sev:"piece",g:"rb",ctrl:"SLAM : échec de localisation — refaire le mapping."},
+ {c:61,fr:"Zone inaccessible — vérifier porte ou dégager le passage",en:"Unable to reach the designated area — check door / clear obstacles",sev:"piece",g:"rb",ctrl:"Vérifier la porte / dégager le passage."},
+ {c:62,fr:"Zone inaccessible — essayez de supprimer les zones interdites",en:"Unable to reach the specified area — try removing no-go zones",sev:"piece",g:"rb",ctrl:"Supprimer les zones interdites."},
+ {c:63,fr:"Trajet de nettoyage bloqué — vérifier porte / obstacles",en:"Cleaning path blocked — check door / obstacles",sev:"piece",g:"rb",ctrl:"Dégager le trajet / la porte."},
+ {c:64,fr:"Zone inaccessible — hors de la carte",en:"Unable to reach designated area — area outside map",sev:"piece",g:"rb",ctrl:"Zone hors carte — refaire le mapping."},
+ {c:65,fr:"Avertissement départ ou retour à la base de charge",en:"Warning if leaving / returning to dock",sev:"mag",g:"rb",ctrl:"Message info — départ / retour base."},
+ {c:66,fr:"/",en:"/",sev:"mag",g:"rb",ctrl:"— (code non utilisé)."},
+ {c:67,fr:"Boucle détectée, retour à la charge",en:"Stuck in a loop, returning to charge",sev:"mag",g:"rb",ctrl:"Boucle détectée — dégager ; vérifier capteurs de navigation."},
+ {c:68,fr:"Rappel : récupérer la serpillière sur la base",en:"Reminder to retrieve mop from dock",sev:"mag",g:"rb",ctrl:"Récupérer la serpillière sur la base."},
+ {c:69,fr:"Vérification du support de serpillière",en:"Mop holder inspection",sev:"piece",g:"rb",ctrl:"Banc : Rouleau serpillière / support — vérifier."},
+ {c:70,fr:"Mode cartographie rapide — installer la serpillière",en:"Quick mapping mode — install mop prompt",sev:"mag",g:"rb",ctrl:"Installer la serpillière (cartographie rapide)."},
+ {c:71,fr:"Erreur moteur serpillière",en:"Mop motor error",sev:"piece",g:"rb",ctrl:"Banc : Serpillage / Rouleau serpillière (moteur mop)."},
+ {c:72,fr:"Surintensité moteur serpillière",en:"Mop motor overcurrent",sev:"piece",g:"rb",ctrl:"Banc : Serpillage. Surintensité moteur mop — dégager."},
+ {c:73,fr:"Erreur caméra IA",en:"AI camera error",sev:"atelier",g:"rb",ctrl:"ATELIER : caméra IA. Nettoyer ; calibrage double caméra."},
+ {c:74,fr:"Échec d'installation de la serpillière",en:"Mop installation failed",sev:"piece",g:"rb",ctrl:"Remonter correctement la serpillière."},
+ {c:75,fr:"Rappel d'arrêt automatique batterie faible",en:"Low battery automatic shutdown reminder",sev:"mag",g:"rb",ctrl:"Message info — arrêt batterie faible."},
+ {c:76,fr:"Détection présence du réservoir d'eaux usées",en:"Robot wastewater tank presence detection",sev:"piece",g:"rb",ctrl:"Reclipser le réservoir d'eaux usées du robot."},
+ {c:77,fr:"Serpillière bloquée",en:"Mop stuck",sev:"piece",g:"rb",ctrl:"Banc : Levage des serpillières / Serpillage. Dégager."},
+ {c:78,fr:"Bloqué dans une zone masquée de la carte",en:"Trapped in hidden map area",sev:"piece",g:"rb",ctrl:"Zone masquée — refaire le mapping."},
+ {c:79,fr:"Échec de levage du LDS",en:"LDS lift failure",sev:"piece",g:"rb",ctrl:"Banc : Lidar — levage. Échec de levage du LDS."},
+ {c:80,fr:"LDS doit se relever mais robot sous un meuble",en:"LDS needs to rise but robot is under furniture",sev:"piece",g:"rb",ctrl:"Dégager le robot (LDS doit se relever, robot sous un meuble)."},
+ {c:81,fr:"Robot LDS rétractable coincé sous un meuble",en:"Lifting LDS robot trapped under furniture",sev:"piece",g:"rb",ctrl:"Dégager le robot (LDS rétractable coincé)."},
+ {c:82,fr:"Serpillière humide/glissante — attendre l'application",en:"Mop wet/slippery — wait for app prompt",sev:"mag",g:"rb",ctrl:"Attendre l'application (serpillière humide)."},
+ {c:83,fr:"Échec du levage de la brosse latérale",en:"Side brush lift failure",sev:"piece",g:"rb",ctrl:"Banc : brosse latérale — levage."},
+ {c:84,fr:"Brosse latérale bloquée",en:"Side brush stuck",sev:"piece",g:"rb",ctrl:"Banc : brosse latérale — dégager l'axe."},
+ {c:85,fr:"Notification d'installation de la serpillière",en:"Mop installation notice",sev:"mag",g:"rb",ctrl:"Installer la serpillière."},
+ {c:86,fr:"Alarme niveau réservoir d'eaux usées",en:"Robot wastewater tank water level alarm",sev:"piece",g:"rb",ctrl:"Vider le réservoir d'eaux usées du robot."},
+ {c:87,fr:"Entrée en attente de franchissement d'obstacle",en:"Triggering entry into obstacle-crossing wait",sev:"piece",g:"rb",ctrl:"Banc : Franchissement d'obstacles (entrée en attente)."},
+ {c:88,fr:"Erreur moteur de franchissement d'obstacle",en:"Obstacle-crossing motor error",sev:"piece",g:"rb",ctrl:"Banc : Franchissement d'obstacles (moteur) — contrôler."},
+ {c:89,fr:"Erreur capteur TOF (capteur de vide)",en:"TOF sensor error (cliff sensor)",sev:"piece",g:"rb",ctrl:"Banc : Capteurs de vide (Cliff / TOF). Nettoyer ; calibrage TOF."},
+ {c:100,fr:"Indicateur d'état de santé de la base",en:"Base station health status indicator",sev:"mag",g:"st",ctrl:"Message d'état de la base."},
+ {c:101,fr:"Bac plein — sac à poussière plein (avertissement)",en:"Dust bin full alarm — dust bag full (warning)",sev:"mag",g:"st",ctrl:"Remplacer le sac (plein)."},
+ {c:102,fr:"Sac à poussière non installé (erreur)",en:"Dust bag not installed (error)",sev:"mag",g:"st",ctrl:"Installer le sac à poussière."},
+ {c:103,fr:"Couvercle du bac collecteur ouvert (erreur)",en:"Dust collection bin cover open (error)",sev:"mag",g:"st",ctrl:"Fermer le couvercle du bac collecteur."},
+ {c:104,fr:"Bac collecteur ou sac obstrué (erreur ou avertissement)",en:"Dust bin / dust bag clogged (error or warning)",sev:"piece",g:"st",ctrl:"Dégager le conduit / remplacer le sac (obstrué). Contrôler l'auto-vidage."},
+ {c:105,fr:"Réservoir d'eau propre non installé",en:"No clean water tank installed",sev:"mag",g:"st",ctrl:"Installer le réservoir d'eau propre."},
+ {c:106,fr:"Réservoir d'eaux usées non installé",en:"Wastewater tank not installed",sev:"mag",g:"st",ctrl:"Installer le réservoir d'eaux usées."},
+ {c:107,fr:"Réservoir d'eau propre vide détecté",en:"Clean water tank detected empty",sev:"mag",g:"st",ctrl:"Remplir le réservoir d'eau propre."},
+ {c:108,fr:"Réservoir d'eaux usées plein détecté",en:"Wastewater tank detected full",sev:"mag",g:"st",ctrl:"Vider le réservoir d'eaux usées."},
+ {c:109,fr:"Obstruction du tuyau d'évacuation détectée",en:"Sewage pipe blockage detected",sev:"piece",g:"st",ctrl:"Dégager le tuyau d'évacuation."},
+ {c:110,fr:"Pompe d'évacuation endommagée détectée",en:"Wastewater pump damage detected",sev:"piece",g:"st",ctrl:"Pompe d'évacuation endommagée — contrôler / remplacer."},
+ {c:111,fr:"Bac de nettoyage non installé",en:"Cleaning tray not installed",sev:"mag",g:"st",ctrl:"Installer le bac de nettoyage."},
+ {c:112,fr:"Niveau d'eau anormal dans le bac de nettoyage",en:"Abnormal water level in cleaning tray",sev:"piece",g:"st",ctrl:"Niveau d'eau anormal — contrôler le bac de nettoyage."},
+ {c:113,fr:"Blocages fréquents du bac collecteur en fonctionnement",en:"Dust bin locks up frequently during operation",sev:"piece",g:"st",ctrl:"Blocages du bac collecteur — dégager le conduit."},
+ {c:114,fr:"Instructions de nettoyage du bac de lavage",en:"Cleaning tray cleaning instructions",sev:"mag",g:"st",ctrl:"Nettoyer le bac de lavage (instructions)."},
+ {c:115,fr:"Lavage terminé — remplir l'eau propre / vider l'eau usée",en:"Mopping task complete — refill clean water / empty waste",sev:"mag",g:"st",ctrl:"Remplir l'eau propre / vider les eaux usées (lavage terminé)."},
+ {c:116,fr:"Eau propre insuffisante pour terminer le nettoyage",en:"Insufficient clean water to complete cleaning",sev:"mag",g:"st",ctrl:"Eau propre insuffisante — remplir."},
+ {c:117,fr:"Notification de déconnexion de la base (application)",en:"Base station disconnection notification (app)",sev:"mag",g:"st",ctrl:"Base déconnectée — vérifier réseau / alimentation."},
+ {c:118,fr:"Réservoir d'eaux usées plein (système d'alim/évac.)",en:"Wastewater tank full (water in/out system)",sev:"piece",g:"st",ctrl:"Réservoir d'eaux usées plein (alim / évac)."},
+ {c:119,fr:"Niveau du bac de lavage trop haut (alim/évac.)",en:"Cleaning tray water level too high (water in/out)",sev:"piece",g:"st",ctrl:"Niveau du bac de lavage trop haut (alim / évac)."},
+ {c:120,fr:"Démontage automatique — serpillière absente de la base",en:"Auto mop removal — mop not at dock alarm",sev:"piece",g:"st",ctrl:"Replacer la serpillière sur la base."},
+ {c:121,fr:"Avertissement après 60 cycles de collecte",en:"Warning after 60 dust collection cycles",sev:"mag",g:"st",ctrl:"Avertissement — 60 cycles de collecte (entretien)."},
+ {c:122,fr:"Tâches d'alimentation et d'évacuation terminées",en:"Water supply and drainage tasks completed",sev:"mag",g:"st",ctrl:"Message info — alim / évac terminées."},
+ {c:123,fr:"Réservoirs alim. et évac. vides",en:"Empty water tank for both supply and drainage",sev:"mag",g:"st",ctrl:"Vider les réservoirs alim. et évac."},
+ {c:124,fr:"Erreur moteur racloir",en:"Scraper motor error",sev:"piece",g:"st",ctrl:"Moteur racloir — contrôler / remplacer."},
+ {c:125,fr:"Pompe d'évacuation bloquée",en:"Sewage pump lock-up",sev:"piece",g:"st",ctrl:"Pompe d'évacuation bloquée — dégager / contrôler. Boîte à outils : Détartrage station."}
+];
+let errView="off",errQuery="";
+const ERR_TGT={1:"cr.cliff",2:"cr.cliff",3:"cr.bump",4:"calib",5:"cr.bump",6:"cr.cliff",12:"cr.asp",13:"cr.asp",14:"cr.fanpa",15:"cr.roues",16:"cr.roues",17:"cr.roues",18:"cr.roues",20:"cr.batt",21:"cr.batt",22:"cr.batt",23:"cr.info",29:"cr.batt",30:"cr.max",31:"cr.roues",32:"cr.roues",33:"calib",34:"calib",35:"calib",42:"cr.pumpin",43:"cr.info",45:"cr.info",48:"cr.ldsspin",49:"cr.lidar",50:"cr.pumpin",51:"cr.fanpa",52:"cr.roues",53:"cr.tof",54:"cr.tof",56:"calib",58:"cr.ultra",69:"cr.roller",71:"cr.serp",72:"cr.serp",77:"cr.moplift",79:"cr.lidar",80:"cr.lidar",81:"cr.lidar",83:"cr.sidearm",84:"cr.asp",87:"cr.cross",88:"cr.cross",89:"cr.cliff",125:"descst"};
+const SUB_TGT={"Lidar / LDS":"cr.ldsspin","Pare-chocs (bumper)":"cr.bump","Capteurs de vide (anti-chute / cliff)":"cr.cliff","Capteur de bord / paroi":"cr.tof","Caméra / capteur optique":"calib","Robot soulevé / coincé":"cr.roues","Brosse principale bloquée":"cr.asp","Brosse latérale bloquée":"cr.asp","Roue gauche / droite bloquée":"cr.roues","Turbine / aspiration — surintensité":"cr.fanpa","Bac à poussière absent / plein":"cr.fanpa","Filtre colmaté / manquant":"cr.fanpa","Réservoir d'eau propre vide / non détecté":"cr.pumpin","Module serpillière non détecté / bloqué":"cr.serp","Pompe à eau en défaut":"cr.pumpin","Station non détectée / signal IR":"cr.base","Détartrage / circuit d'eau station":"descst","Batterie — température hors plage":"cr.batt","Défaut batterie / ne charge pas":"cr.batt","Erreur de charge / contacts":"cr.batt","Erreur interne / communication carte":"cr.info"};
+const _errbtn=tg=>tg?` <button type="button" class="errgo" data-goerr="${tg}" title="Aller au test à contrôler">→ Tester</button>`:"";
+function goErrTest(tg){
+  if(tg==="descst"){openDescale("st");return}
+  if(tg==="desrb"){openDescale("rb");return}
+  if(!(prof.dev==="rb"&&!document.body.classList.contains("mode-bl"))){toast("🔧 Sélectionnez un robot pour accéder à ce test.");return}
+  if(tg==="calib"){showTab("calib");return}
+  const max=DEV.rb.lv.length;
+  if(!document.getElementById("card-"+tg)&&prof.lvl!==max){prof.lvl=max;store.set("prof",prof);renderAll();}
+  showTab("quick");
+  setTimeout(()=>{const e=document.getElementById("card-"+tg);if(e){e.scrollIntoView({block:"center",behavior:"smooth"});e.classList.add("hl");setTimeout(()=>e.classList.remove("hl"),2600);}else{toast("Test non disponible sur ce profil.");}},160);
+}
+function renderErr(){
+  const el=$("errList");if(!el)return;
+  document.querySelectorAll("#errPills .pill-f").forEach(b=>b.classList.toggle("on",b.dataset.errv===errView));
+  const fold=s=>(typeof foldC==="function")?foldC(s):(s+"").toLowerCase();
+  const q=fold(errQuery);
+  const SEVL={mag:'<span class="sev mag">Magasin</span>',piece:'<span class="sev piece">Pièce</span>',atelier:'<span class="sev atelier">Atelier</span>'};
+  let html="",body="";
+  if(errView==="off"){
+    const m=e=>!q||fold(e.c+" "+e.fr+" "+e.en+" "+e.ctrl).includes(q);
+    const sec=(title,arr)=>{const rows=arr.filter(m);if(!rows.length)return"";return `<div class="grp"><h2>${title}<small>${rows.length} code(s)</small></h2><div class="tw"><table><thead><tr><th>Code</th><th>Signification</th><th>Sév.</th><th>Contrôle au banc</th></tr></thead><tbody>${rows.map(e=>`<tr><td>${e.c}</td><td><b>${esc(e.fr)}</b><div class="eren">🇬🇧 ${esc(e.en)}</div></td><td>${SEVL[e.sev]||""}</td><td>${esc(e.ctrl)}${_errbtn(ERR_TGT[e.c])}</td></tr>`).join("")}</tbody></table></div></div>`;};
+    body+=sec("🤖 Robot — codes 0 à 89",ERR_OFF.filter(e=>e.g==="rb"));
+    body+=sec("🏠 Station de base — codes 100 à 125",ERR_OFF.filter(e=>e.g==="st"));
+    const bl=ERRCODES.filter(e=>e.dev==="bl"&&(!q||fold(e.code+" "+e.sig+" "+e.ctrl+" "+e.cat).includes(q)));
+    if(bl.length){let b2="";[...new Set(bl.map(e=>e.cat))].forEach(cat=>{const rows=bl.filter(e=>e.cat===cat);b2+=`<div class="errcat"><h3>${esc(cat)}</h3><div class="tw"><table><thead><tr><th>Code / voyant</th><th>Signification</th><th>Contrôle au banc</th></tr></thead><tbody>${rows.map(e=>`<tr><td>${esc(e.code)}</td><td>${e.sig}</td><td>${e.ctrl}${_errbtn(SUB_TGT[e.code])}</td></tr>`).join("")}</tbody></table></div></div>`;});body+=`<div class="grp"><h2>🧹 Balais laveurs — voyants & codes<small>${bl.length}</small></h2>${b2}</div>`;}
+    if(body)html=`<div class="sevleg"><b>Sévérité :</b> ${SEVL.mag} geste magasin / client · ${SEVL.piece} remplacement pièce · ${SEVL.atelier} atelier (carte / électronique)</div>`+body;
+  }else{
+    ["rb","bl"].forEach(dev=>{const items=ERRCODES.filter(e=>e.dev===dev&&(!q||fold(e.code+" "+e.sig+" "+e.ctrl+" "+e.cat).includes(q)));if(!items.length)return;const cats=[...new Set(items.map(e=>e.cat))];body+=`<div class="grp"><h2>${dev==="rb"?"🤖 Aspirateurs robots":"🧹 Balais laveurs"}<small>${items.length} entrée(s)</small></h2>`;cats.forEach(cat=>{const rows=items.filter(e=>e.cat===cat);body+=`<div class="errcat"><h3>${esc(cat)}</h3><div class="tw"><table><thead><tr><th>Code / voyant</th><th>Signification</th><th>Contrôle au banc</th></tr></thead><tbody>${rows.map(e=>`<tr><td>${esc(e.code)}</td><td>${e.sig}</td><td>${e.ctrl}${_errbtn(SUB_TGT[e.code])}</td></tr>`).join("")}</tbody></table></div></div>`;});body+=`</div>`;});
+    html=body;
+  }
+  el.innerHTML=html||`<div class="empty">Aucun code ne correspond à « ${esc(errQuery)} ».</div>`;
+}
 function renderAll(){renderProfile();renderHome();renderQuick();renderComp();renderCalib();renderMop();renderFullIntro();renderHist();updateSummary();setStatus();if(typeof renderTriage==="function")renderTriage();}
 
 /* ============================================================ ÉVÉNEMENTS */
@@ -2030,8 +2284,13 @@ document.addEventListener("click",async e=>{
   if(t.dataset.prof){const [d,n]=t.dataset.prof.split(":");const changed=d!==prof.dev;prof={dev:d,lvl:+n};store.set("prof",prof);qFilter="all";
     if(changed&&connected()){S.inTest=false;toast(`${DEV[d].name} sélectionné : brancher l'adaptateur sur ${d==="st"?"la station":"le robot"}`)}renderAll();showTab("quick");return}
   if(t.dataset.qf){qFilter=t.dataset.qf;renderQuick();return}
+  if(t.dataset.errv){errView=t.dataset.errv;renderErr();return}
+  if(t.dataset.goerr){goErrTest(t.dataset.goerr);return}
+  if(t.id==="errTop"){const c=document.querySelector(".content");if(c)c.scrollTo({top:0,behavior:"smooth"});return}
+  if(t.id==="errBottom"){const c=document.querySelector(".content");if(c)c.scrollTo({top:c.scrollHeight,behavior:"smooth"});return}
   if(t.dataset.resetres){combosOf().forEach(c=>{delete results[c.id];(c.parts||[]).forEach(p=>delete results[p])});store.set("results",results);renderQuick();renderComp();renderFullIntro();updateSummary();toast("↺ Tests réinitialisés — aucun verdict conservé");return}
   if(t.dataset.battreport){printBatteryReport();return}
+  if(t.dataset.suctreport){printSuctionReport();return}
   if(t.dataset.descale){openDescale(t.dataset.descale);return}
   if(t.dataset.ext){extendRun(t.dataset.ext,15);return}
   if(t.dataset.stopid){const r=runs[t.dataset.stopid];if(r)r.cancel=true;const c=byId(t.dataset.stopid);if(c&&!c.noOff)sendList(cmdsOf(c,false).off);return}
@@ -2049,7 +2308,8 @@ document.addEventListener("click",async e=>{
     document.body.classList.remove("mode-bl");const changed=d!==prof.dev;prof={dev:d,lvl:n};store.set("prof",prof);qFilter="all";
     if(changed&&connected()){S.inTest=false;}renderAll();return}
   if(t.dataset.gocalib){if(prof.dev==="rb"&&!document.body.classList.contains("mode-bl")){showTab("calib");}else{toast("🔧 Le calibrage & réglages est réservé aux robots — sélectionnez un robot.");}return}
-  if(t.dataset.gobatt){if(!(prof.dev==="rb"&&!document.body.classList.contains("mode-bl"))){toast("🔋 La santé batterie est réservée aux robots — sélectionnez un robot.");return}showTab("comp");setTimeout(()=>{const el=document.getElementById("card-cr.batt");if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("hl");setTimeout(()=>el.classList.remove("hl"),2600);}},140);return}
+  if(t.dataset.gobatt){if(!(prof.dev==="rb"&&!document.body.classList.contains("mode-bl"))){toast("🔋 La santé batterie est réservée aux robots — sélectionnez un robot.");return}showTab("quick");setTimeout(()=>{const el=document.getElementById("card-cr.batt");if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("hl");setTimeout(()=>el.classList.remove("hl"),2600);}},140);return}
+  if(t.dataset.gofanpa){if(!(prof.dev==="rb"&&!document.body.classList.contains("mode-bl"))){toast("🌀 L'aspiration — capacité (Pa) est réservée aux robots — sélectionnez un robot.");return}showTab("quick");setTimeout(()=>{const el=document.getElementById("card-cr.fanpa");if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("hl");setTimeout(()=>el.classList.remove("hl"),2600);}},140);return}
   if(t.dataset.tab){showTab(t.dataset.tab);return}
   if(t.dataset.mop){if(connected()){if(!S.inTest)await enterTest();await sendRaw(t.dataset.mop,"Texte")}else toast("Non connecté : bouton SSCOM "+t.dataset.num);return}
   if(t.dataset.seq){const n=+t.dataset.seq,s=SEQ.find(x=>x[0]===n);if(connected()){if(!S.inTest)await enterTest();await sendRaw(s[2],"Texte")}else toast("Non connecté : bouton SSCOM "+n);
@@ -2225,7 +2485,7 @@ function battPanelHTML(b){
     ${rows.length?`<div class="kv">${rows.map(r=>`<div><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join("")}</div>`
       :(b.pairs.length?`<div class="kv">${b.pairs.slice(0,10).map(p=>`<div><span>${esc(p[0])}</span><b>${esc(p[1])}</b></div>`).join("")}</div>`:"")}
     ${verdict}
-    ${b.mvRaw!=null?`<label class="serfield">🔖 N° de série (dossier)<input type="text" class="s serialsync" placeholder="ex. P2114…" title="Ajouté au dossier — apparaîtra sur le rapport"></label><div style="margin:8px 0 2px;display:flex;gap:8px;flex-wrap:wrap"><button class="b pri" type="button" data-sohstart="1">🩺 Mesurer la santé (SOH · résistance interne)</button><button class="b c-dark" type="button" data-battreport="1">📄 Rapport complet (imprimer / enregistrer)</button></div><div class="see">La mesure SOH applique une charge (turbine) et calcule la résistance interne. Le rapport reprend toutes les valeurs + le SOH mesuré.</div><div id="sohBox"></div>`:""}
+    ${b.mvRaw!=null?`<label class="serfield">🔖 N° de série (dossier)<input type="text" class="s serialsync" placeholder="ex. P2114…" title="Ajouté au dossier — apparaîtra sur le rapport"></label><div style="margin:8px 0 2px;display:flex;gap:8px;flex-wrap:wrap"><button class="b pri" type="button" data-sohstart="1">🩺 Mesurer la santé (SOH · résistance interne)</button><button class="b c-dark" type="button" data-battreport="1">📄 Rapport complet (imprimer / enregistrer)</button></div><div class="see">La mesure SOH applique une charge (turbine) et calcule la résistance interne. Sur certains modèles (<b>Aqua 10, Matrix, X40, X50, X60</b>) le moteur d'aspiration ne démarre pas toujours : la mesure bascule alors automatiquement sur la <b>brosse principale/latérale</b>. Le rapport reprend toutes les valeurs + le SOH.</div><div id="sohBox"></div>`:""}
     ${found&&!verdict?`<div class="see">Comparez à l'état attendu du modèle : tension très basse ou température anormale → <b>batterie à remplacer</b>.</div>`:""}
     ${found?battTableHTML():`<div class="see">La réponse « info -a » de ce robot ne contient pas (encore) de champ batterie reconnu. Voici la réponse brute — <b>copiez-la et envoyez-la moi</b> ; sinon la mesure se fait sous <b>FCT constructeur</b>.</div>`}
     <details class="rpraw"${found?"":" open"}><summary>Réponse brute du robot (info -a)</summary><div class="resp">${esc(b.raw||"(aucune réponse reçue — le robot n'a rien renvoyé à « info -a »)")}</div><button class="b ghost" type="button" data-copyresp="1" style="margin-top:6px">📋 Copier la réponse</button></details>
@@ -2253,19 +2513,34 @@ async function measureBatteryHealth(box){
     const v1=V["batvolt(mv)"]!=null?V["batvolt(mv)"]/1000:null, i1=V["batcurrent"]!=null?V["batcurrent"]/1000:null;
     const soc=V["socekfsend"]!=null?V["socekfsend"]:null, bt=V["battemp"]!=null?V["battemp"]/10:null;
     if(v1==null||i1==null){box.innerHTML='<div class="warn" style="margin-top:8px">Valeurs batterie non lues. Vérifiez que le robot est allumé et en mode test, puis réessayez.</div>';if(btn)btn.disabled=false;return;}
-    setp("2/3 · application de la charge (turbine max)");
-    await sendRaw("fan 1100","Texte"); await sleep(1900);
-    const V2=parseVars(await readInfoOnce(900)||[]);
-    await sendRaw("fan 0","Texte");
-    const v2=V2["batvolt(mv)"]!=null?V2["batvolt(mv)"]/1000:null, i2=V2["batcurrent"]!=null?V2["batcurrent"]/1000:null;
+    /* Charges d'essai successives : si la turbine ne tourne pas (ou n'appelle pas de courant),
+       on bascule automatiquement sur la brosse principale, puis latérale, puis les deux. */
+    const LOADS=[
+      {name:"turbine (aspiration max)",on:["fan 1100"],off:["fan 0"]},
+      {name:"brosse principale",on:["roll 12000"],off:["roll 0"]},
+      {name:"brosse latérale",on:["side 12000"],off:["side 0"]},
+      {name:"brosses principale + latérale",on:["roll 12000","side 12000"],off:["roll 0","side 0"]}
+    ];
+    let best=null;
+    for(let k=0;k<LOADS.length;k++){
+      const L=LOADS[k];
+      setp(`2/3 · application d'une charge · ${L.name}`);
+      for(const c of L.on){await sendRaw(c,"Texte");}
+      await sleep(1900);
+      const V2=parseVars(await readInfoOnce(900)||[]);
+      for(const c of L.off){await sendRaw(c,"Texte");}
+      const v2=V2["batvolt(mv)"]!=null?V2["batvolt(mv)"]/1000:null, i2=V2["batcurrent"]!=null?V2["batcurrent"]/1000:null;
+      if(v2!=null&&i2!=null){const dI=Math.abs(i2-i1);if(!best||dI>best.dI)best={v2,i2,dI,name:L.name};if(dI>=0.3){break;}}
+      await sleep(400);
+    }
     if(btn)btn.disabled=false;
-    if(v2==null||i2==null){box.innerHTML='<div class="warn" style="margin-top:8px">Lecture sous charge impossible — réessayez.</div>';return;}
-    const dI=Math.abs(i2-i1);
-    if(dI<0.3){box.innerHTML=`<div class="warn" style="margin-top:8px">Appel de courant trop faible (Δ ${dI.toFixed(2)} A) pour estimer la résistance : la turbine n'a pas suffisamment chargé la batterie. Refaites avec une batterie bien chargée et la turbine dégagée.</div>`;return;}
-    box.innerHTML=sohReportHTML(v1,i1,v2,i2,soc,bt);
+    if(!best){box.innerHTML='<div class="warn" style="margin-top:8px">Lecture sous charge impossible — réessayez.</div>';return;}
+    if(best.dI<0.3){box.innerHTML=`<div class="warn" style="margin-top:8px"><b>Appel de courant trop faible (Δ ${best.dI.toFixed(2)} A)</b> pour estimer la résistance. Testé avec turbine, brosse principale et latérale sans charge suffisante — vérifiez qu'un moteur tourne bien (turbine/brosses dégagées) et que la batterie est chargée, puis réessayez.</div>`;return;}
+    box.innerHTML=sohReportHTML(v1,i1,best.v2,best.i2,soc,bt,best.name);
   }catch(e){if(btn)btn.disabled=false;box.innerHTML='<div class="warn" style="margin-top:8px">Mesure interrompue.</div>';}
 }
-function sohReportHTML(v1,i1,v2,i2,soc,bt){
+function sohReportHTML(v1,i1,v2,i2,soc,bt,loadName){
+  const load=loadName||"turbine max";
   const Vv=v1, expCell=soc!=null?(3.3+0.9*soc/100):null;
   const S=expCell!=null?[4,5].sort((a,c)=>Math.abs(Vv/a-expCell)-Math.abs(Vv/c-expCell))[0]:(Vv>17.4?5:4);
   const Ri=Math.abs(v1-v2)/Math.abs(i2-i1), RiCellm=Ri/S*1000, RiNew=25,RiEol=110;
@@ -2274,9 +2549,9 @@ function sohReportHTML(v1,i1,v2,i2,soc,bt){
   const advice=soh>=80?"Résistance interne faible : batterie en bon état. Remettre en service.":soh>=55?"Santé en baisse, autonomie qui se dégrade. Informer le client ; remplacement à prévoir à moyen terme.":"Résistance interne élevée : autonomie fortement réduite et coupures possibles sous charge. <b>Remplacement recommandé.</b>";
   const col=cls[0]==="good"?"var(--green)":cls[0]==="warn"?"var(--amber)":"var(--red)";
   const dash=(soh/100*264).toFixed(0);
-  const txt=`RAPPORT SANTÉ BATTERIE — ${cls[3]}\nRepos : ${v1.toFixed(2)} V · ${i1.toFixed(2)} A${bt!=null?' · '+bt.toFixed(1)+' °C':''}\nSous charge (turbine max) : ${v2.toFixed(2)} V · ${i2.toFixed(2)} A\nRésistance interne (ΔV/ΔI) : ${(Ri*1000).toFixed(0)} mΩ pack · ${RiCellm.toFixed(0)} mΩ/élément (${S}S)\nSOC ${soc!=null?soc+' %':'—'} · SOH ${soh} %\nConfidentiel FNAC DARTY — référent PEM Bezons`;
+  const txt=`RAPPORT SANTÉ BATTERIE — ${cls[3]}\nRepos : ${v1.toFixed(2)} V · ${i1.toFixed(2)} A${bt!=null?' · '+bt.toFixed(1)+' °C':''}\nSous charge (${load}) : ${v2.toFixed(2)} V · ${i2.toFixed(2)} A\nRésistance interne (ΔV/ΔI) : ${(Ri*1000).toFixed(0)} mΩ pack · ${RiCellm.toFixed(0)} mΩ/élément (${S}S)\nSOC ${soc!=null?soc+' %':'—'} · SOH ${soh} %`;
   window._sohTxt=txt;
-  window._sohData={v1,i1,v2,i2,soc,bt,Ri,RiCellm,soh,S,label:cls[3],advice};
+  window._sohData={v1,i1,v2,i2,soc,bt,Ri,RiCellm,soh,S,label:cls[3],advice,load};
   return `<div class="readpanel" style="margin-top:10px">
     <div class="rphead">🩺 Rapport de santé batterie — <span class="${cls[0]==='good'?'okt':'kot'}">${cls[3]}</span></div>
     <div class="sohwrap">
@@ -2288,7 +2563,7 @@ function sohReportHTML(v1,i1,v2,i2,soc,bt){
       </div>
     </div>
     <div class="orient ${cls[1]}"><span class="n12 ${cls[2]}">${cls[1]==='ok'?'OK':'!'}</span><span><b>Conseil technicien.</b> ${advice}</span></div>
-    <div class="see">Méthode : résistance interne = chute de tension ÷ hausse de courant, sous charge turbine. SOH indicatif (cellule neuve ≈ ${RiNew} mΩ, fin de vie ≈ ${RiEol} mΩ) ; la doc constructeur prime.</div>
+    <div class="see">Méthode : résistance interne = chute de tension ÷ hausse de courant, sous charge <b>${esc(load)}</b>. SOH indicatif (cellule neuve ≈ ${RiNew} mΩ, fin de vie ≈ ${RiEol} mΩ) ; la doc constructeur prime.</div>
     <div style="margin-top:8px"><button class="b c-dark" type="button" data-battreport="1">📄 Rapport complet (imprimer / enregistrer)</button></div>
     <details class="rpraw"><summary>Détail des mesures &amp; export</summary><div class="resp">${esc(txt)}</div><button class="b ghost" type="button" data-copyresp="1" style="margin-top:6px">📋 Copier le rapport</button></details>
   </div>`;
@@ -2307,7 +2582,7 @@ function batteryReportHTML(){
       <tr><td>Résultat</td><td><b style="color:${col}">${esc(so.label)} — SOH ${so.soh} %</b></td></tr>
       <tr><td>Résistance interne</td><td>${so.RiCellm.toFixed(0)} mΩ/élément · ${(so.Ri*1000).toFixed(0)} mΩ pack (${so.S}S)</td></tr>
       <tr><td>Au repos</td><td>${so.v1.toFixed(2)} V · ${so.i1.toFixed(2)} A${so.bt!=null?" · "+so.bt.toFixed(1)+" °C":""}</td></tr>
-      <tr><td>Sous charge (turbine max)</td><td>${so.v2.toFixed(2)} V · ${so.i2.toFixed(2)} A</td></tr>
+      <tr><td>Sous charge (${esc(so.load||"turbine max")})</td><td>${so.v2.toFixed(2)} V · ${so.i2.toFixed(2)} A</td></tr>
       <tr><td>Chute de tension</td><td>${((so.v1-so.v2)*1000).toFixed(0)} mV pour Δ ${Math.abs(so.i2-so.i1).toFixed(2)} A</td></tr>
       </tbody></table>
       <div class="rbadvice"><b>Conseil technicien.</b> ${so.advice}</div>`;
@@ -2315,35 +2590,172 @@ function batteryReportHTML(){
     sohBlock=`<div class="rbadvice">Santé (SOH) non mesurée — lancez « Mesurer la santé » avant d'éditer le rapport pour inclure la résistance interne et le SOH.</div>`;
   }
   const cyc=b.cycles?`Nombre de cycles de charge relevé : <b>${esc(b.cycles)}</b>.`:`Nombre de cycles non communiqué par ce modèle (information non disponible dans « info&nbsp;-a »).`;
+  const meta=[model||"Robot Dreame",serial,nomad?("NOMAD "+nomad):"",tech,dstr].filter(Boolean).map(esc).join(" · ");
   return `<div class="report">
-    <div class="rhead"><div><div class="kick2">Rapport de santé batterie</div><h1 style="margin:2px 0">${esc(model||"Robot Dreame")}</h1>
-      <div class="see">${esc(dstr)}${nomad?" · NOMAD "+esc(nomad):""} · ${esc(serial||"sans n° de série")} · ${esc(tech||"technicien non renseigné")}</div></div></div>
+    <div class="rhead"><div><h1 style="margin:0 0 2px">Santé batterie</h1>
+      <div class="see">${meta}</div></div></div>
     <h3 style="margin:12px 0 6px">Mesures relevées</h3>
     ${rows.length?`<table class="rt"><tbody>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td></tr>`).join("")}</tbody></table>`:`<div class="see">Aucune valeur batterie lue.</div>`}
     <div class="see" style="margin-top:6px">${cyc}</div>
     ${sohBlock}
-    <div class="rbnote">Méthode : tension à vide comparée au tableau Li-ion ; résistance interne = chute de tension ÷ hausse de courant sous charge turbine (cellule neuve ≈ 25 mΩ, fin de vie ≈ 110 mΩ). Valeurs indicatives, la documentation constructeur prime.</div>
-    <div class="rbconf">Document confidentiel — usage professionnel strict, ne pas diffuser hors du groupe FNAC DARTY. Créé par le référent PEM de Bezons — tous droits réservés.</div>
+    <div class="rbadvice"><b>Conseils pour préserver la batterie :</b>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li>Laissez le robot <b>rentrer à sa station</b> après chaque cycle ; évitez de le laisser déchargé longtemps.</li>
+        <li>Si la station possède un <b>interrupteur on/off</b>, laissez-la <b>branchée et allumée</b> : ne la débranchez pas et ne la mettez pas sur « off ». La batterie reste ainsi en charge d'entretien.</li>
+        <li>Évitez la <b>chaleur</b> (> 40 °C) et le froid extrême ; ne rechargez pas en plein soleil.</li>
+        <li>Faites de temps en temps une <b>charge complète</b> pour fiabiliser la jauge ; inutile de décharger jusqu'à 0 %.</li>
+        <li>En cas de non-utilisation prolongée, rangez le robot chargé à <b>~50 %</b>, station éteinte.</li>
+      </ul>
+    </div>
+    <div class="rbnote">Méthode : tension à vide comparée au tableau Li-ion ; résistance interne = chute de tension ÷ hausse de courant sous charge (cellule neuve ≈ 25 mΩ, fin de vie ≈ 110 mΩ). Valeurs indicatives, la documentation constructeur prime. Sur certains modèles (Aqua 10, Matrix, X40, X50, X60), le moteur d'aspiration ne démarre pas toujours pour la mesure : la santé est alors évaluée via une autre charge (brosse principale ou latérale).</div>
+    <div class="rblogo"><img src="${IMG.fnac}" alt="FNAC DARTY"></div>
   </div>`;
 }
 function printBatteryReport(){
   const model=($("fModel")&&$("fModel").value.trim())||"", serial=($("fSerial")&&$("fSerial").value.trim())||"";
   printBlock("Rapport_batterie_"+((serial||model||"Dreame").replace(/[^\w-]+/g,"_")), batteryReportHTML());
 }
+/* ===== Aspiration : mesure (Pa approximatif) + verdict + rapport ===== */
+function suctionPanelHTML(c,lines){
+  const def=(window._suctRated)||5000;
+  return `<div class="readpanel">
+    <div class="rphead">🌀 Performance d'aspiration — Pa</div>
+    <div class="rpnote">Le banc lance la <b>turbine au maximum standard</b> et évalue son <b>appel de courant</b>, sa <b>vitesse</b> et la <b>santé batterie</b>. La valeur en <b>Pa est une estimation</b> (sans manomètre) : la valeur annoncée par le constructeur correspond souvent au pic <b>VorMax</b> (mode boost non commandé ici), l'estimation est donc normalement un peu <b>en dessous</b>. Pour un chiffre exact, utilisez un <b>manomètre</b> (champ optionnel).</div>
+    <label class="serfield">Aspiration max constructeur (Pa)<input type="number" class="s suctrated" list="paList" value="${def}" min="500" step="100" title="Valeur annoncée pour ce modèle (étiquette / fiche technique)"></label>
+    <datalist id="paList"><option value="4000"></option><option value="5000"></option><option value="6000"></option><option value="7000"></option><option value="8000"></option><option value="9000"></option><option value="10000"></option><option value="12000"></option><option value="15000"></option><option value="19000"></option><option value="20000"></option><option value="25000"></option><option value="30000"></option><option value="35000"></option><option value="40000"></option><option value="45000"></option><option value="50000"></option></datalist>
+    <label class="serfield">Mesuré au manomètre (Pa) — optionnel<input type="number" class="s suctmeas" placeholder="si vous avez un manomètre" min="0" step="100"></label>
+    <div style="margin:8px 0;display:flex;gap:8px;flex-wrap:wrap"><button class="b pri" type="button" data-suctstart="1">🌀 Mesurer l'aspiration</button></div>
+    <div id="suctBox"></div>
+  </div>`;
+}
+const _clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+async function measureSuction(box){
+  if(!box)return;const btn=document.querySelector("[data-suctstart]");
+  if(!connected()){box.innerHTML='<div class="warn" style="margin-top:8px">Connectez le robot pour mesurer l\'aspiration.</div>';return;}
+  const rated=parseInt((document.querySelector(".suctrated")||{}).value,10)||5000;window._suctRated=rated;
+  const measRaw=parseFloat((document.querySelector(".suctmeas")||{}).value);const meas=isNaN(measRaw)?null:measRaw;
+  if(btn)btn.disabled=true;
+  box.innerHTML='<div class="note" style="margin-top:10px"><b>Mesure en cours…</b> turbine à puissance maximale (courant + vitesse)</div>';
+  try{
+    if(!S.inTest)await enterTest();
+    const V=parseVars(await readInfoOnce(1100)||[]);
+    const i1=V["batcurrent"]!=null?V["batcurrent"]/1000:null, v1=V["batvolt(mv)"]!=null?V["batvolt(mv)"]/1000:null, soc=V["socekfsend"]!=null?V["socekfsend"]:null;
+    await sendRaw("fan 1100","Texte");await sleep(2100);
+    const V2=parseVars(await readInfoOnce(900)||[]);
+    const i2=V2["batcurrent"]!=null?V2["batcurrent"]/1000:null, v2=V2["batvolt(mv)"]!=null?V2["batvolt(mv)"]/1000:null;
+    const rpmKey=Object.keys(V2).find(k=>k.indexOf("fan")>=0&&(k.indexOf("speed")>=0||k.indexOf("rpm")>=0||k.indexOf("rotate")>=0));
+    const rpm=rpmKey&&!isNaN(parseFloat(V2[rpmKey]))?Math.abs(parseFloat(V2[rpmKey])):null;
+    await sendRaw("fan 0","Texte");
+    if(btn)btn.disabled=false;
+    if(i1==null||i2==null){box.innerHTML='<div class="warn" style="margin-top:8px">Courant batterie non lu — vérifiez que le robot est allumé et en mode test, puis réessayez.</div>';return;}
+    box.innerHTML=suctionResultHTML({dI:Math.abs(i2-i1),i1,i2,v1,v2,soc,rpm,rated,meas});
+  }catch(e){if(btn)btn.disabled=false;try{sendRaw("fan 0","Texte");}catch(_){}box.innerHTML='<div class="warn" style="margin-top:8px">Mesure interrompue.</div>';}
+}
+/* Estimation réaliste de l'aspiration (Pa) : combine le courant turbine (puissance),
+   la vitesse de rotation du ventilateur (Pa ∝ vitesse²) et la santé/charge de la batterie.
+   Le résultat plafonne sous la valeur marketing — jamais exactement la valeur saisie. */
+function suctionEstimate(d){
+  const rated=d.rated||5000;
+  /* santé batterie : SOH mesuré si dispo, sinon SOC ; pénalité si forte chute de tension sous charge */
+  const sohFrac=(window._sohData&&window._sohData.soh!=null)?window._sohData.soh/100:null;
+  let battFrac = sohFrac!=null?sohFrac : (d.soc!=null? _clamp(0.68+0.32*d.soc/100,0.5,1) : 0.9);
+  let sag=null; if(d.v1!=null&&d.v2!=null){sag=d.v1-d.v2; if(sag>0.3) battFrac*=_clamp(1-(sag-0.3)/3.5,0.6,1);}
+  battFrac=_clamp(battFrac,0.5,1);
+  /* courant turbine : ~2,2 A = pleine charge saine */
+  const curFrac=_clamp(d.dI/2.2,0,1.05);
+  /* vitesse ventilateur : suction ∝ vitesse² ; vitesse attendue indexée sur la classe du modèle */
+  let rpmFrac=null; if(d.rpm!=null&&d.rpm>100){const rpmRef=14000+rated*2.0; rpmFrac=_clamp(Math.pow(d.rpm/rpmRef,2),0.1,1.08);}
+  /* performance composite (moyenne pondérée des signaux disponibles) */
+  let num=curFrac*0.5+battFrac*0.2, den=0.7;
+  if(rpmFrac!=null){num+=rpmFrac*0.4;den+=0.4;}
+  const perf=_clamp(num/den,0,1.05);
+  const ceiling=0.93; /* l'aspiration réelle plafonne sous la valeur annoncée */
+  const pa=Math.max(0,Math.round(rated*ceiling*perf/50)*50);
+  return {pa,perf,curFrac,battFrac,rpmFrac,battPct:Math.round(battFrac*100)};
+}
+function suctionVerdict(d){
+  const rated=d.rated;
+  const mk=(cls,n,label,pa,advice,approx)=>({cls,n,label,pa,advice,approx});
+  if(d.meas!=null&&rated){const r=d.meas/rated;const pa=Math.round(d.meas);
+    if(r>=0.65)return mk("ok","N1","✅ Aspiration excellente",pa,`Aspiration élevée (${pa} Pa, soit ${Math.round(r*100)} % des ${rated} Pa annoncés). Turbine et circuit d'air en très bon état.`,false);
+    if(r>=0.5)return mk("ok","N1","✅ Débit d'air correct",pa,`Débit d'air correct (${pa} Pa, ${Math.round(r*100)} % des ${rated} Pa annoncés). Turbine fonctionnelle.`,false);
+    return mk("hs","N2","❌ Aspiration faible",pa,`Aspiration faible (${pa} Pa, sous la moitié des ${rated} Pa annoncés) : filtre colmaté, fuite d'air, conduit obstrué ou turbine fatiguée.`,false);}
+  const e=suctionEstimate(d);const ratio=e.pa/rated;let v;
+  if(d.dI<0.4) v=mk("hs","N2","❌ Turbine ne force pas",e.pa,"Très peu de courant appelé : la turbine ne tourne pas ou tourne à vide (moteur turbine, carte ou connecteur). Contrôler le bloc turbine.",true);
+  else if(ratio>=0.65) v=mk("ok","N1","✅ Aspiration excellente",e.pa,`Turbine qui tourne et force bien. Aspiration estimée ≈ <b>${e.pa} Pa</b> (${Math.round(ratio*100)} % des ${rated} Pa annoncés).`,true);
+  else if(ratio>=0.5) v=mk("ok","N1","✅ Débit d'air correct",e.pa,`Débit d'air correct. Aspiration estimée ≈ <b>${e.pa} Pa</b> (${Math.round(ratio*100)} % des ${rated} Pa annoncés).`,true);
+  else v=mk("hs","N2","❌ Aspiration faible",e.pa,`Aspiration estimée ≈ <b>${e.pa} Pa</b> (< 50 % des ${rated} Pa annoncés) : filtre colmaté, fuite d'air, conduit obstrué, batterie faible ou turbine fatiguée.`,true);
+  v.e=e;return v;
+}
+function suctionResultHTML(d){
+  const vd=suctionVerdict(d);const e=vd.e||{};
+  window._suctData={dI:d.dI,i1:d.i1,i2:d.i2,v1:d.v1,v2:d.v2,soc:d.soc,rpm:d.rpm,rated:d.rated,meas:d.meas,pa:vd.pa,label:vd.label,advice:vd.advice,approx:vd.approx,battPct:e.battPct,perf:e.perf};
+  const rpmRow=d.rpm!=null?`<div class="sohm"><span>Vitesse ventilateur</span><b>${Math.round(d.rpm)}<small> tr/min</small></b><small>rotation turbine</small></div>`:"";
+  const battRow=`<div class="sohm"><span>Batterie (santé/charge)</span><b>${e.battPct!=null?e.battPct:"—"}<small> %</small></b><small>${window._sohData&&window._sohData.soh!=null?"SOH mesuré":(d.soc!=null?"SOC "+d.soc+" %":"estimé")}</small></div>`;
+  return `<div class="readpanel" style="margin-top:10px">
+    <div class="rphead">🌀 Résultat aspiration — <span class="${vd.cls==='ok'?'okt':'kot'}">${vd.label}</span></div>
+    <div class="sohwrap">
+      <div class="sohmetrics" style="width:100%">
+        <div class="sohm ${vd.cls}"><span>${d.meas!=null?"Aspiration mesurée":"Aspiration estimée"}</span><b>${vd.pa}<small> Pa</small></b><small>${d.meas!=null?"au manomètre":"≈ approximatif"} · annoncé ${d.rated} Pa</small></div>
+        <div class="sohm"><span>Appel de courant turbine</span><b>${(d.dI).toFixed(2)}<small> A</small></b><small>repos ${d.i1.toFixed(2)} A → max ${d.i2.toFixed(2)} A</small></div>
+        ${rpmRow}${battRow}
+      </div>
+    </div>
+    <div class="orient ${vd.cls}"><span class="n12 ${vd.n}">${vd.cls==='ok'?'OK':'!'}</span><span><b>Conseil technicien.</b> ${vd.advice}</span></div>
+    <div class="see">Estimation combinant <b>courant turbine</b>, <b>vitesse de rotation</b>${d.rpm!=null?"":" (non communiquée par ce modèle)"} et <b>santé batterie</b>, en <b>max standard (hors VorMax)</b>. Valeur en Pa <b>approximative</b> (sans manomètre) et normalement <b>en dessous</b> de la valeur annoncée (souvent un pic VorMax).</div>
+    <label class="serfield" style="margin-top:8px">🔖 N° de série (dossier)<input type="text" class="s serialsync" placeholder="ex. P2114…"></label>
+    <div style="margin-top:6px"><button class="b c-dark" type="button" data-suctreport="1">📄 Rapport complet (imprimer / enregistrer)</button></div>
+  </div>`;
+}
+function suctionReportHTML(){
+  const s=window._suctData;if(!s)return '<div class="report"><div class="see">Lancez d\'abord la mesure d\'aspiration.</div></div>';
+  const model=($("fModel")&&$("fModel").value.trim())||"", serial=($("fSerial")&&$("fSerial").value.trim())||"", tech=($("fTech")&&$("fTech").value.trim())||"", nomad=($("fNomad")&&$("fNomad").value.trim())||"";
+  const d=new Date();const dstr=d.toLocaleDateString("fr-FR")+" à "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
+  const meta=[model||"Robot Dreame",serial,nomad?("NOMAD "+nomad):"",tech,dstr].filter(Boolean).map(esc).join(" · ");
+  const col=/✅/.test(s.label)?"#047857":/⚠️/.test(s.label)?"#b45309":"#cf3e3e";
+  return `<div class="report">
+    <div class="rhead"><div><h1 style="margin:0 0 2px">Performance d'aspiration — Pa</h1><div class="see">${meta}</div></div></div>
+    <div class="orient ${/✅/.test(s.label)?'ok':/⚠️/.test(s.label)?'mid':'hs'}"><span class="n12 ${/✅/.test(s.label)?'N1':'N2'}">${/✅/.test(s.label)?'OK':'!'}</span><span><b>${esc(s.label)}.</b></span></div>
+    <h3 style="margin:12px 0 6px">Mesures</h3>
+    <table class="rt"><tbody>
+      <tr><td>Aspiration ${s.meas!=null?"mesurée (manomètre)":"estimée (approximative)"}</td><td><b style="color:${col}">${s.pa} Pa</b></td></tr>
+      <tr><td>Aspiration max constructeur</td><td>${s.rated} Pa</td></tr>
+      <tr><td>Appel de courant turbine</td><td>${s.dI.toFixed(2)} A (repos ${s.i1.toFixed(2)} A → max ${s.i2.toFixed(2)} A)</td></tr>
+      ${s.rpm!=null?`<tr><td>Vitesse ventilateur (turbine)</td><td>${Math.round(s.rpm)} tr/min</td></tr>`:""}
+      ${s.battPct!=null?`<tr><td>Batterie (santé / charge)</td><td>${s.battPct} %${s.soc!=null?" · SOC "+s.soc+" %":""}</td></tr>`:""}
+    </tbody></table>
+    <div class="rbadvice"><b>Conseils d'entretien pour conserver une aspiration optimale :</b>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><b>Filtre</b> : nettoyez-le toutes les 2–3 semaines et remplacez-le tous les 3–6 mois (un filtre encrassé fait chuter l'aspiration).</li>
+        <li><b>Bac à poussière</b> : videz-le régulièrement, ne le laissez pas se remplir au-delà de la moitié.</li>
+        <li><b>Brosse principale et latérales</b> : retirez cheveux et fils enroulés.</li>
+        <li><b>Conduit d'air et entrée</b> : vérifiez qu'aucun bouchon n'obstrue le passage.</li>
+        <li><b>Joints et trappe du bac</b> : assurez-vous qu'ils ferment bien (une fuite d'air réduit la puissance).</li>
+        <li>Utilisez le robot avec un filtre <b>sec et propre</b> pour une puissance maximale.</li>
+      </ul>
+    </div>
+    <div class="rbnote">${s.approx?"Valeur en Pa <b>estimée sans manomètre</b> (combine l'appel de courant de la turbine, sa vitesse de rotation et la santé de la batterie), mesurée en <b>mode d'aspiration maximum standard</b>. ":"Valeur en Pa mesurée au manomètre. "}Lorsqu'une fiche technique mentionne une « aspiration <b>VorMax</b> de X Pa », cela signifie simplement que l'appareil utilise la motorisation propriétaire Dreame pour atteindre ce niveau de dépression. « VorMax » désigne la <b>technologie d'aspiration haute performance de Dreame</b> : ce n'est pas une nouvelle unité de mesure physique, mais le système global combinant un moteur numérique rapide et une conception aérodynamique optimisée. La valeur annoncée correspond généralement à ce pic, l'estimation en usage courant est donc normalement un peu en dessous.</div>
+    <div class="rblogo"><img src="${IMG.fnac}" alt="FNAC DARTY"></div>
+  </div>`;
+}
+function printSuctionReport(){
+  const serial=($("fSerial")&&$("fSerial").value.trim())||"", model=($("fModel")&&$("fModel").value.trim())||"";
+  printBlock("Rapport_aspiration_"+((serial||model||"Dreame").replace(/[^\w-]+/g,"_")), suctionReportHTML());
+}
 /* ===== Détartrage du circuit d'eau (station / robot) ===== */
 const DESCALE={
   st:{title:"Détartrage de la station",dev:"st",dname:"station",
     on:["electvalve -1","injectvalve -1","cleanpump 12000","dirtypump 12000"],
     off:["cleanpump 0","dirtypump 0","injectvalve -0","electvalve -0"],
-    pulses:4,onSec:18,dwellSec:14,
+    pulses:6,onSec:26,dwellSec:24,
     circuit:"circuit d'eau de la station (pompe eau propre → bac de lavage → pompe eaux usées)",
-    steps:["Videz le réservoir d'eau propre, remplissez-le d'<b>eau tiède + détartrant dilué</b> (dose selon la notice, ex. 1 dose d'acide citrique pour ~1 L).","Mettez en place le <b>réservoir d'eaux usées vide</b> et une serpillière propre (ou un bac) sous la sortie.","Cliquez <b>« Lancer le détartrage »</b> : la station fait <b>circuler la solution par cycles</b> (≈ 2 min) avec des temps de pause pour que le détartrant agisse.","À la fin, <b>rincez à l'eau claire</b> : remplissez le réservoir d'eau propre et relancez un cycle court."]},
+    steps:["Videz le réservoir d'eau propre, remplissez-le d'<b>eau tiède + détartrant dilué</b> (dose selon la notice, ex. 1 dose d'acide citrique pour ~1 L).","Mettez en place le <b>réservoir d'eaux usées vide</b> et une serpillière propre (ou un bac) sous la sortie.","Cliquez <b>« Lancer le détartrage »</b> : la station fait <b>circuler la solution par cycles</b> (≈ 5 min) avec des temps de pause pour que le détartrant agisse.","À la fin, <b>rincez à l'eau claire</b> : remplissez le réservoir d'eau propre et relancez un cycle court."]},
   rb:{title:"Détartrage du robot",dev:"rb",dname:"robot",
     on:["pumpin -1","pump -6"],
     off:["pump -0","pumpin -0"],
-    pulses:3,onSec:15,dwellSec:12,
+    pulses:5,onSec:22,dwellSec:20,
     circuit:"circuit d'eau du robot (réservoir → pompe d'injection → serpillières)",
-    steps:["Videz le réservoir d'eau du robot, remplissez-le d'<b>eau tiède + détartrant dilué</b> (acide citrique ou produit Dreame).","Posez le robot <b>sur cales, au-dessus d'un bac</b> (les serpillières vont s'humidifier).","Cliquez <b>« Lancer le détartrage »</b> : la pompe fait <b>circuler la solution par cycles</b> (≈ 1 min 30) avec des pauses d'action.","À la fin, <b>rincez à l'eau claire</b> : remplissez le réservoir d'eau propre et relancez un cycle court."]}
+    steps:["Videz le réservoir d'eau du robot, remplissez-le d'<b>eau tiède + détartrant dilué</b> (acide citrique ou produit Dreame).","Posez le robot <b>sur cales, au-dessus d'un bac</b> (les serpillières vont s'humidifier).","Cliquez <b>« Lancer le détartrage »</b> : la pompe fait <b>circuler la solution par cycles</b> (≈ 3 min 30) avec des pauses d'action.","À la fin, <b>rincez à l'eau claire</b> : remplissez le réservoir d'eau propre et relancez un cycle court."]}
 };
 let descAbort=false,descState={};
 function openDescale(kind){
@@ -2419,9 +2831,10 @@ function descaleReportHTML(kind){
   const model=($("fModel")&&$("fModel").value.trim())||"", serial=($("fSerial")&&$("fSerial").value.trim())||"", tech=($("fTech")&&$("fTech").value.trim())||"", nomad=($("fNomad")&&$("fNomad").value.trim())||"";
   const d=new Date(descState.when||Date.now());const dstr=d.toLocaleDateString("fr-FR")+" à "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
   const durMin=Math.round(descState.total/60*10)/10;
+  const meta=[model||("Dreame — "+cfg.dname),serial,nomad?("NOMAD "+nomad):"",tech,dstr].filter(Boolean).map(esc).join(" · ");
   return `<div class="report">
-    <div class="rhead"><div><div class="kick2">Rapport de détartrage — ${esc(cfg.dname)}</div><h1 style="margin:2px 0">${esc(model||("Dreame — "+cfg.dname))}</h1>
-      <div class="see">${esc(dstr)}${nomad?" · NOMAD "+esc(nomad):""} · ${esc(serial||"sans n° de série")} · ${esc(tech||"technicien non renseigné")}</div></div></div>
+    <div class="rhead"><div><h1 style="margin:0 0 2px">Détartrage — ${esc(cfg.dname)}</h1>
+      <div class="see">${meta}</div></div></div>
     <div class="orient ok"><span class="n12 N1">OK</span><span><b>Opération réalisée.</b> Le <b>${esc(cfg.circuit)}</b> a été <b>détartré</b> : une solution détartrante a été mise en circulation par cycles (≈ ${durMin} min, avec temps de pose), puis le circuit a été arrêté proprement.</span></div>
     <h3 style="margin:12px 0 6px">Constat</h3>
     <table class="rt"><tbody>
@@ -2433,7 +2846,6 @@ function descaleReportHTML(kind){
       <tr><td>Résultat</td><td><b style="color:#047857">Circuit d'eau détartré — bon fonctionnement du système rétabli</b></td></tr>
     </tbody></table>
     <div class="rbadvice"><b>Conseil.</b> Pour espacer les détartrages, privilégiez de l'<b>eau déminéralisée</b> dans le réservoir. Refaites un détartrage <b>tous les 1 à 2 mois</b> en usage courant (plus souvent en eau très calcaire). Après chaque détartrage, lancez un <b>cycle de rinçage à l'eau claire</b> pour éliminer tout résidu acide, et essuyez les contacts/joints.</div>
-    <div class="rbconf">Document confidentiel — usage professionnel strict, ne pas diffuser hors du groupe FNAC DARTY. Créé par le référent PEM de Bezons — tous droits réservés.</div>
   </div>`;
 }
 function printDescaleReport(kind){
@@ -2492,6 +2904,7 @@ function fillReadPanel(container,c,lines){
     const upd=()=>{const n=cbs.filter(x=>x.checked).length,tot=cbs.length;vd.className="baseverdict"+(n===tot?" ok":n?" mid":"");vd.innerHTML=n===tot?("✔ "+(c.obsOk||"Capteur conforme — validez « Fonctionne ».")):n?`${n}/${tot} vérifié(s) — ${c.obsBad||"si un point échoue → « Ne fonctionne pas »."}`:"Cochez ce que vous constatez…";};
     cbs.forEach(cb=>cb.onchange=upd);upd();
     return;}
+  if(c.suction){window._suctData=null;container.innerHTML=suctionPanelHTML(c,lines);const sb=container.querySelector("[data-suctstart]");if(sb)sb.onclick=()=>measureSuction(container.querySelector("#suctBox"));refreshSerialSync();return;}
   if(c.id==="cr.batt"||c.id==="r.batt"){const bd=parseBattery(lines);window._battData=bd;window._sohData=null;container.innerHTML=battPanelHTML(bd);refreshSerialSync();
     const sb=container.querySelector("[data-sohstart]");if(sb)sb.onclick=()=>measureBatteryHealth(container.querySelector("#sohBox"));
     return;}
@@ -2683,7 +3096,7 @@ function histReportHTML(){
   const rows=H.map(r=>{const v=verdictOf(r),d=new Date(r.date),lv=v.c==="ok"?"N1":v.c==="hs"?"N2":"—";
     const hs=[...new Set(r.rows.filter(x=>x.s==="hs").map(x=>x.n).concat((r.units||[]).filter(u=>u.s==="hs").map(u=>u.n)))].join(", ");
     return `<tr><td>${d.toLocaleDateString("fr-FR")} ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</td><td>${esc(DEV[r.dev].name)}</td><td>${LVN[r.lvl]||""}</td><td>${esc(r.model||"-")}</td><td>${esc(r.serial||"-")}</td><td>${esc(r.nomad||"-")}</td><td>${esc(r.tech||"-")}</td><td><span class="n12 ${lv==="N1"?"N1":lv==="N2"?"N2":""}">${lv}</span> ${esc(v.t)}${hs?"<br><small>"+esc(hs)+"</small>":""}</td></tr>`;}).join("");
-  return `<div class="report"><div class="rhead"><div><div class="grpname">Outil conçu par le référent PEM de Bezons · Confidentiel FNAC DARTY — ne pas diffuser · tous droits réservés</div><h3 style="font-size:22px">Rapports enregistrés — Banc de test Dreame</h3><div class="see">${H.length} fiche(s) robot / station · export du ${new Date().toLocaleDateString("fr-FR")}</div></div></div>
+  return `<div class="report"><div class="rhead"><div><h3 style="font-size:22px">Rapports enregistrés — Banc de test Dreame</h3><div class="see">${H.length} fiche(s) robot / station · export du ${new Date().toLocaleDateString("fr-FR")}</div></div></div>
     <div class="tw"><table><thead><tr><th>Date</th><th>Type</th><th>Niveau</th><th>Modèle</th><th>N° série</th><th>NOMAD</th><th>Technicien</th><th>Orientation</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
 }
 function blHistReportHTML(){
@@ -2691,21 +3104,23 @@ function blHistReportHTML(){
   const rows=H.map(r=>{const d=new Date(r.date),lv=(r.orient||"").split(" ")[0];
     const f=(r.faults||[]).map(x=>"Code "+x.c+(x.e?"/"+x.e:"")+"×"+x.cnt).join(", ")||"conforme";
     return `<tr><td>${d.toLocaleDateString("fr-FR")} ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</td><td>${esc(r.model||"-")}</td><td>${esc(r.serial||"-")}</td><td>${esc(r.nomad||"-")}</td><td>${esc(r.tech||"-")}</td><td><span class="n12 ${lv==="N1"?"N1":lv==="N2"?"N2":""}">${lv||"—"}</span></td><td>${esc(f)}</td></tr>`;}).join("");
-  return `<div class="report"><div class="rhead"><div><div class="grpname">Outil conçu par le référent PEM de Bezons · Confidentiel FNAC DARTY — ne pas diffuser · tous droits réservés</div><h3 style="font-size:22px">Historique balai laveur — Banc de test Dreame</h3><div class="see">${H.length} fiche(s) · export du ${new Date().toLocaleDateString("fr-FR")}</div></div></div>
+  return `<div class="report"><div class="rhead"><div><h3 style="font-size:22px">Historique balai laveur — Banc de test Dreame</h3><div class="see">${H.length} fiche(s) · export du ${new Date().toLocaleDateString("fr-FR")}</div></div></div>
     <div class="tw"><table><thead><tr><th>Date</th><th>Modèle</th><th>N° série</th><th>NOMAD</th><th>Technicien</th><th>Orient.</th><th>Défauts</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
 }
 $("btnResetRes").addEventListener("click",()=>{combosOf().forEach(c=>{delete results[c.id];c.parts.forEach(p=>delete results[p])});store.set("results",results);W=null;$("reportBox").hidden=true;$("wizard").hidden=true;$("fullIntro").hidden=false;renderQuick();renderComp();renderFullIntro();updateSummary();toast("Test réinitialisé — aucun résultat conservé")});
 
 /* ============================================================ ONGLETS */
-const TABS=["home","triage","quick","full","comp","calib","mop","guide","panne","bldiag","blguide","blfaq","stats"];
-function showTab(id){if(id==="mop"&&prof.dev!=="st")id="quick";if(id==="calib"&&prof.dev!=="rb")id="quick";if(id==="triage"&&prof.dev!=="rb"&&prof.dev!=="st")id="quick";document.body.classList.toggle("mode-bl",id.indexOf("bl")===0);
+const TABS=["home","triage","quick","full","comp","calib","mop","guide","panne","errcodes","bldiag","blguide","blfaq","stats"];
+function showTab(id){if(id==="mop"&&prof.dev!=="st")id="quick";if(id==="calib"&&prof.dev!=="rb")id="quick";if(id==="triage"&&prof.dev!=="rb"&&prof.dev!=="st")id="quick";if(id!=="errcodes")document.body.classList.toggle("mode-bl",id.indexOf("bl")===0);
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id));
   TABS.forEach(s=>$(s).hidden=s!==id);store.set("tab",id);const ct=document.querySelector(".content");if(ct)ct.scrollTop=0;
   const bb=$("backBar");if(bb)bb.hidden=(id==="home");
-  const bc=$("backCtx");if(bc){const nm={quick:"Tests rapides",triage:"Filtrage rapide N1/N2",full:"Test complet + rapport",comp:"Composants un par un",calib:"Calibrage & réglages",mop:"Changeur serpillière",guide:"Guide d'utilisation",panne:"Dépannage",bldiag:"Diagnostic balai laveur",blguide:"Guide balai laveur",blfaq:"FAQ balai laveur",stats:"Statistiques & suivi"};bc.textContent=nm[id]?("· "+nm[id]):"";}
+  const bc=$("backCtx");if(bc){const nm={quick:"Tests rapides",triage:"Filtrage rapide N1/N2",full:"Test complet + rapport",comp:"Composants un par un",calib:"Calibrage & réglages",mop:"Changeur serpillière",guide:"Guide d'utilisation",panne:"Dépannage",errcodes:"Codes erreurs",bldiag:"Diagnostic balai laveur",blguide:"Guide balai laveur",blfaq:"FAQ balai laveur",stats:"Statistiques & suivi"};bc.textContent=nm[id]?("· "+nm[id]):"";}
+  if(id==="errcodes"){renderErr();}
   if(id==="stats"){if(typeof renderStats==="function")renderStats();if(typeof renderSyncStatus==="function")renderSyncStatus();}}
 document.addEventListener("click",e=>{const b=e.target.closest("#backHome");if(b){showTab("home");}});
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.includes(h))showTab(h)});
+document.addEventListener("input",e=>{if(e.target&&e.target.id==="errSearch"){errQuery=e.target.value;renderErr();}});
 
 /* ================= BALAI LAVEUR (codes défaut Dreame, note 0901) ================= */
 /* Séparé du banc série robot/station : aucune commande envoyée, interprétation seule. */
@@ -3402,7 +3817,7 @@ function downloadJSON(name,obj){try{const a=document.createElement("a");a.href=U
 function centralReportHTML(){
   const L=centralBackfill();if(!L.length)return null;
   const rows=L.slice().sort((a,b)=>b.t-a.t).map(r=>{const d=new Date(r.t);return `<tr><td>${d.toLocaleDateString("fr-FR")} ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</td><td>${esc(r.type||"")}</td><td>${esc(r.lvl||"")}</td><td>${esc(r.model||"-")}</td><td>${esc(r.serial||"-")}</td><td>${esc(r.nomad||"-")}</td><td>${esc(r.tech||"-")}</td><td><span class="n12 ${r.orient==="N1"?"N1":r.orient==="N2"?"N2":""}">${esc(r.orient||"—")}</span></td><td>${esc(r.detail||"")}</td></tr>`;}).join("");
-  return `<div class="report"><div class="rhead"><div><div class="grpname">Outil conçu par le référent PEM de Bezons · Confidentiel FNAC DARTY — ne pas diffuser · tous droits réservés</div><h3 style="font-size:22px">Suivi centralisé — Banc de test Dreame</h3><div class="see">${L.length} fiche(s) · export du ${new Date().toLocaleDateString("fr-FR")}</div></div></div>
+  return `<div class="report"><div class="rhead"><div><h3 style="font-size:22px">Suivi centralisé — Banc de test Dreame</h3><div class="see">${L.length} fiche(s) · export du ${new Date().toLocaleDateString("fr-FR")}</div></div></div>
     <div class="tw"><table><thead><tr><th>Date</th><th>Type</th><th>Niveau</th><th>Modèle</th><th>N° série</th><th>NOMAD</th><th>Technicien</th><th>Orient.</th><th>Détail</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
 }
 
