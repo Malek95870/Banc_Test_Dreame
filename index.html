@@ -1645,7 +1645,7 @@ td.dcell .trd{color:var(--teal);font-size:.86em;margin-top:3px;display:block;lin
   <span id="sbMode"></span>
   <span id="sbRes"></span>
   <span class="conflock">🔒 Usage professionnel strict — ne pas diffuser hors du groupe FNAC DARTY</span>
-  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v72.0</span></span>
+  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v74.0</span></span>
 </div>
 </div>
 <div class="descmodal noprint" id="descaleModal" hidden><div class="descbox" role="dialog" aria-modal="true" aria-labelledby="descTitle"><button class="descclose" id="descClose" type="button" aria-label="Fermer">✕</button><div id="descBody"></div></div></div>
@@ -1902,6 +1902,7 @@ function currentBaud(){const s=$("baudSel");return s?(parseInt(s.value,10)||1152
   const box=s.closest(".baudbox");if(box){box.addEventListener("click",e=>{if(e.target!==s){try{s.showPicker();}catch(_){s.focus();}}});}})();
 /* Synchronisation des champs « N° de série (dossier) » avec la fiche */
 function refreshSerialSync(){const v=($("fSerial")&&$("fSerial").value)||"";document.querySelectorAll(".serialsync").forEach(i=>{i.value=v;});}
+function clearSerial(){const fs=$("fSerial");if(fs)fs.value="";try{store.set("fSerial","");}catch(_){}document.querySelectorAll(".serialsync").forEach(i=>{i.value="";});}
 document.addEventListener("input",e=>{const i=e.target;if(i.classList&&i.classList.contains("serialsync")){const v=i.value;const fs=$("fSerial");if(fs){fs.value=v;}try{store.set("fSerial",v);}catch(_){}document.querySelectorAll(".serialsync").forEach(o=>{if(o!==i)o.value=v;});}});
 /* Fermeture de la fenêtre de détartrage */
 (function initDescale(){const m=$("descaleModal"),x=$("descClose");if(!m)return;
@@ -3079,6 +3080,7 @@ const DESCALE={
     on:["electvalve -1","injectvalve -1","cleanpump 12000","dirtypump 12000"],
     off:["cleanpump 0","dirtypump 0","injectvalve -0","electvalve -0"],
     pulses:5,onSec:34,dwellSec:26,rinse:true,rinseSec:120,
+    rinseOn:["electvalve -1","injectvalve -1","cleanpump 12000","dirtypump 12000"],rinseOff:["cleanpump 0","dirtypump 0","injectvalve -0","electvalve -0"],
     circuit:"circuit d'eau de la station (pompe eau propre → bac de lavage → pompe eaux usées)",
     steps:["Videz le réservoir d'eau propre, remplissez-le d'<b>eau tiède + détartrant dilué</b> (dose selon la notice, ex. 1 dose d'acide citrique pour ~1 L).","Mettez en place le <b>réservoir d'eaux usées vide</b> et une serpillière propre (ou un bac) sous la sortie.","Cliquez <b>« Lancer le détartrage »</b> : la station fait <b>circuler la solution par cycles</b> pendant <b>5 min</b> (avec temps de pause pour que le détartrant agisse).","Au bout de 5 min, le banc vous demandera de <b>vider le bac d'eau propre et de le remplir d'eau claire (sans détartrant)</b> pour lancer un <b>rinçage de 2 min</b>.","Une <b>alarme</b> retentit à la fin (détartrage + rinçage ≈ 7 min)."]},
   rb:{title:"Détartrage du robot",dev:"rb",dname:"robot",
@@ -3111,6 +3113,7 @@ function openDescale(kind){
 function closeDescale(){descAbort=true;$("descaleModal").hidden=true;
   /* sécurité : couper les commandes en cours */
   if(descState.kind&&connected()){const cfg=DESCALE[descState.kind];(cfg.off||[]).forEach(c=>{try{sendRaw(c,"Texte");}catch(_){}});}
+  if(descState.done)clearSerial();
 }
 function renderDescale(kind,phase,extra){
   const cfg=DESCALE[kind];const body=$("descBody");if(!body)return;
@@ -3145,7 +3148,7 @@ function renderDescale(kind,phase,extra){
   }else if(phase==="done"){
     const okmsg=isDrain?`<b>Drainage terminé.</b> L'eau a été <b>expulsée</b> du ${esc(cfg.circuit)}. Essuyez les serpillières et le logement ; l'appareil est prêt pour le <b>transport / stockage</b>.`:`<b>Détartrage terminé.</b> La solution a circulé dans le ${esc(cfg.circuit)}${cfg.rinse?", suivi d'un <b>rinçage à l'eau claire</b>":". Pensez à <b>rincer à l'eau claire</b> avant de rendre l'appareil"}.`;
     body.innerHTML=head+
-      `<div class="orient ok" style="margin-top:6px"><span class="n12 N1">OK</span><span>${okmsg}</span></div>`+
+      `<div class="orient ok" style="margin-top:6px"><span class="n12 N1">OK</span><span>${okmsg}</span></div>`+(!isDrain?`<div class="note" style="margin-top:6px">💡 Terminez en lançant un <b>cycle de nettoyage manuellement depuis l'application</b> Dreame.</div>`:"")+
       `<label class="serfield">🔖 N° de série (dossier)<input type="text" class="s serialsync" placeholder="ex. P2114…" title="Ajouté au dossier — apparaîtra sur le rapport"></label>`+
       `<div class="descact"><button class="b c-dark" type="button" id="descReport">📄 Éditer le rapport (imprimer / enregistrer)</button>
         <button class="b" type="button" id="descAgain">↻ ${isDrain?"Relancer le drainage":"Relancer (rinçage)"}</button>
@@ -3191,18 +3194,20 @@ async function runDescale(kind){
   }catch(e){for(const c of cfg.off){try{sendRaw(c,"Texte");}catch(_){}}toast("Opération interrompue");}
 }
 async function continueRinse(kind){
-  const cfg=DESCALE[kind];
+  const cfg=DESCALE[kind];const onC=cfg.rinseOn||cfg.on,offC=cfg.rinseOff||cfg.off;
   if(!connected()){toast("Connectez l'appareil pour lancer le rinçage");return;}
   descAbort=false;
   try{
     if(!S.inTest)await enterTest();
     let elapsed=descState.elapsedBeforeRinse||0;
-    for(const c of cfg.on){if(descAbort)return;await sendRaw(c,"Texte");}
-    for(let s=0;s<cfg.rinseSec;s++){if(descAbort){for(const c of cfg.off){try{await sendRaw(c,"Texte");}catch(_){}}return;}
-      renderDescale(kind,"run",{elapsed:elapsed+s,remain:cfg.rinseSec-s,rinse:true,msg:"💦 Rinçage à l'eau claire…"});await sleep(1000);}
-    for(const c of cfg.off){try{await sendRaw(c,"Texte");}catch(_){}}
+    for(const c of onC){if(descAbort)return;await sendRaw(c,"Texte");}
+    /* relance la pompe eau propre toutes les 20 s pour garantir un débit d'eau constant pendant tout le rinçage */
+    for(let s=0;s<cfg.rinseSec;s++){if(descAbort){for(const c of offC){try{await sendRaw(c,"Texte");}catch(_){}}return;}
+      if(s>0&&s%20===0){for(const c of onC){try{await sendRaw(c,"Texte");}catch(_){}}}
+      renderDescale(kind,"run",{elapsed:elapsed+s,remain:cfg.rinseSec-s,rinse:true,msg:"💦 Rinçage à l'eau claire — électrovanne AIR + vanne 2 positions + pompe eau propre…"});await sleep(1000);}
+    for(const c of offC){try{await sendRaw(c,"Texte");}catch(_){}}
     descState.done=true;descState.when=Date.now();descBeep();renderDescale(kind,"done");toast("✅ Détartrage + rinçage terminés");
-  }catch(e){for(const c of cfg.off){try{sendRaw(c,"Texte");}catch(_){}}toast("Rinçage interrompu");}
+  }catch(e){for(const c of offC){try{sendRaw(c,"Texte");}catch(_){}}toast("Rinçage interrompu");}
 }
 function descaleReportHTML(kind){
   const cfg=DESCALE[kind];
@@ -3224,7 +3229,7 @@ function descaleReportHTML(kind){
       <tr><td>Résultat</td><td><b style="color:#047857">Circuit d'eau détartré — bon fonctionnement rétabli</b></td></tr>`;
   const advice=isDrain
     ?`<b>Conseil.</b> Drainez le robot <b>avant tout transport, stockage prolongé ou envoi en magasin</b>, surtout en période de gel. Un circuit vidé évite les <b>fuites</b> et la formation de <b>tartre</b> dans la mini-pompe et les durites.`
-    :`<b>Conseil.</b> Pour espacer les détartrages, privilégiez de l'<b>eau déminéralisée</b> dans le réservoir. Refaites un détartrage <b>tous les 1 à 2 mois</b> en usage courant (plus souvent en eau très calcaire). Après chaque détartrage, essuyez les contacts/joints.`;
+    :`<b>Conseil.</b> Pour espacer les détartrages, privilégiez de l'<b>eau déminéralisée</b> dans le réservoir. Refaites un détartrage <b>tous les 1 à 2 mois</b> en usage courant (plus souvent en eau très calcaire). Après chaque détartrage, essuyez les contacts/joints, puis lancez un <b>cycle de nettoyage manuellement depuis l'application</b> Dreame pour évacuer les derniers résidus.`;
   return `<div class="report rpsheet">
     ${rpBanner((isDrain?"Drainage":"Détartrage")+" — "+cfg.dname,isDrain?"Vidange du circuit d'eau":"Nettoyage du circuit d'eau")}
     ${rpInfo(model,serial,nomad,tech,dstr,"Dreame — "+cfg.dname)}
@@ -3247,6 +3252,7 @@ function descaleReportHTML(kind){
 function printDescaleReport(kind){
   const serial=($("fSerial")&&$("fSerial").value.trim())||"", model=($("fModel")&&$("fModel").value.trim())||"";
   printBlock("Rapport_detartrage_"+DESCALE[kind].dname+"_"+((serial||model||"Dreame").replace(/[^\w-]+/g,"_")), descaleReportHTML(kind));
+  clearSerial();toast("N° de série effacé pour le prochain dossier");
 }
 /* Panneau de lecture télémétrie : affiche des variables précises de la table info -a (ldsRpm, ultra_err…) */
 function telemPanelHTML(c,lines){
@@ -3526,8 +3532,7 @@ function rpInfo(model,serial,nomad,tech,dstr,devName){
   return `<div class="rpinfo">${cells.map(c=>`<div><span>${esc(c[0])}</span><b>${esc(c[1])}</b></div>`).join("")}</div>`;
 }
 function rpFoot(){
-  const v=(document.querySelector(".copyv")||{}).textContent||"";
-  return `<div class="rpfoot"><span>Document remis par votre atelier SAV — merci de votre confiance. Usage professionnel ; reproduction interdite hors de ce cadre.</span><span class="rpv">DREAME SAV studio${v?" · "+v:""}</span></div>`;
+  return `<div class="rpfoot"><span>Document remis par votre atelier SAV — merci de votre confiance. Usage professionnel ; reproduction interdite hors de ce cadre.</span></div>`;
 }
 function careCalHTML(){
   return `<div class="carecal"><div class="cch">🗓️ Calendrier d'entretien — pour éviter les pannes et faire durer votre robot</div>
