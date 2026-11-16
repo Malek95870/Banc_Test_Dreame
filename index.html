@@ -1214,6 +1214,49 @@ td.dcell .trd{color:var(--teal);font-size:.86em;margin-top:3px;display:block;lin
 .report .carecal .ccf{padding:8px 13px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute);background:var(--card2);line-height:1.45}
 .report .rblogo .rbthanks{font-size:11.5px;color:var(--mute);margin-top:6px}
 .report .tw tbody tr:nth-child(even) td{background:var(--card2)}
+/* ===== Rapports façon fiche technique (v72) ===== */
+.rpsheet{padding:0!important;gap:0!important;border:1px solid var(--line);overflow:hidden}
+.rpban{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:3px solid var(--blue);background:var(--card2)}
+.rpbL{display:flex;align-items:center;gap:12px}
+.rpflogo{height:30px;width:auto;object-fit:contain}
+.rpbt{display:flex;flex-direction:column;line-height:1.15}
+.rpbt b{font:800 16px var(--sans);color:var(--ink)}
+.rpbt span{font-size:10.5px;color:var(--mute)}
+.rpbR{text-align:right}
+.rptype{font:800 17px var(--sans);color:var(--blue);line-height:1.05}
+.rpsub{font-size:10.5px;color:var(--mute)}
+.rpinfo{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.rpinfo>div{padding:6px 12px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:1px}
+.rpinfo>div:last-child{border-right:0}
+.rpinfo span{font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+.rpinfo b{font-size:12px;color:var(--ink);word-break:break-word}
+.rphero{display:flex;align-items:center;gap:18px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.rphero .rhval{font:800 34px var(--sans);line-height:1}
+.rphero .rhval small{font:700 16px var(--sans)}
+.rphero .rhlab{font:700 15px var(--sans)}
+.rphero .rhsub{font-size:11.5px;color:var(--mute);margin-top:3px;line-height:1.4}
+.rphero.ok{background:color-mix(in srgb,var(--green) 9%,transparent)}
+.rphero.mid{background:color-mix(in srgb,var(--amber) 11%,transparent)}
+.rphero.hs{background:color-mix(in srgb,var(--red) 8%,transparent)}
+.rphero .rhbig{font-size:40px;line-height:1}
+.rpcols{display:grid;grid-template-columns:1fr 1fr}
+.rppanel{padding:11px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.rppanel:nth-child(even){border-right:0}
+.rppanel h4{margin:0 0 8px;font:italic 700 13px var(--sans);color:var(--blue)}
+.rppanel .rt{width:100%}
+.rppanel .rt td{padding:6px 10px;font-size:12px}
+.rpcare{padding:10px 16px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.5}
+.rpcare b{color:var(--ink)}
+.rpsheet .carecal{margin:10px 16px;border-radius:10px}
+.rpfoot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px;font-size:10.5px;color:var(--mute);background:var(--card2)}
+.rpfoot .rpv{font-variant-numeric:tabular-nums}
+@media print{
+  .report.rpsheet{padding:7mm!important;font-size:11px}
+  body.print-area #printArea .report.rpsheet{padding:7mm!important}
+  .rpsheet .rppanel,.rpsheet .rpcare,.rpsheet .rphero,.rpsheet .carecal,.rpsheet .rpban{break-inside:avoid}
+  .rpsheet .rphero .rhval{font-size:30px}
+}
+@media(max-width:620px){.rpinfo{grid-template-columns:repeat(2,1fr)}.rpinfo>div:nth-child(2n){border-right:0}.rpcols{grid-template-columns:1fr}.rppanel{border-right:0}}
 </style>
 
 <div class="app">
@@ -1602,7 +1645,7 @@ td.dcell .trd{color:var(--teal);font-size:.86em;margin-top:3px;display:block;lin
   <span id="sbMode"></span>
   <span id="sbRes"></span>
   <span class="conflock">🔒 Usage professionnel strict — ne pas diffuser hors du groupe FNAC DARTY</span>
-  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v71.0</span></span>
+  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v72.0</span></span>
 </div>
 </div>
 <div class="descmodal noprint" id="descaleModal" hidden><div class="descbox" role="dialog" aria-modal="true" aria-labelledby="descTitle"><button class="descclose" id="descClose" type="button" aria-label="Fermer">✕</button><div id="descBody"></div></div></div>
@@ -2868,26 +2911,33 @@ function batteryReportHTML(){
   }else{
     sohBlock=`<div class="rbadvice">Santé (SOH) non mesurée — lancez « Mesurer la santé » avant d'éditer le rapport pour inclure la résistance interne et le SOH.</div>`;
   }
-  const cyc=b.cycles?`Nombre de cycles de charge relevé : <b>${esc(b.cycles)}</b>.`:`Nombre de cycles non communiqué par ce modèle (information non disponible dans « info&nbsp;-a »).`;
-  const meta=[model||"Robot Dreame",serial,nomad?("NOMAD "+nomad):"",tech,dstr].filter(Boolean).map(esc).join(" · ");
-  return `<div class="report">
-    <div class="rhead"><div><h1 style="margin:0 0 2px">Santé batterie</h1>
-      <div class="see">${meta}</div></div></div>
-    <h3 style="margin:12px 0 6px">Mesures relevées</h3>
-    ${rows.length?`<table class="rt"><tbody>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td></tr>`).join("")}</tbody></table>`:`<div class="see">Aucune valeur batterie lue.</div>`}
-    <div class="see" style="margin-top:6px">${cyc}</div>
-    ${sohBlock}
-    <div class="rbadvice"><b>Conseils pour préserver la batterie :</b>
-      <ul style="margin:6px 0 0;padding-left:18px">
-        <li>Laissez le robot <b>rentrer à sa station</b> après chaque cycle ; évitez de le laisser déchargé longtemps.</li>
-        <li>Si la station possède un <b>interrupteur on/off</b>, laissez-la <b>branchée et allumée</b> : ne la débranchez pas et ne la mettez pas sur « off ». La batterie reste ainsi en charge d'entretien.</li>
-        <li>Évitez la <b>chaleur</b> (> 40 °C) et le froid extrême ; ne rechargez pas en plein soleil.</li>
-        <li>Faites de temps en temps une <b>charge complète</b> pour fiabiliser la jauge ; inutile de décharger jusqu'à 0 %.</li>
-        <li>En cas de non-utilisation prolongée, rangez le robot chargé à <b>~50 %</b>, station éteinte.</li>
-      </ul>
+  const cyc=b.cycles?`Cycles de charge relevés : <b>${esc(b.cycles)}</b>.`:`Nombre de cycles non communiqué par ce modèle.`;
+  const mes=rows.slice();
+  if(so){mes.push(["Résistance interne",`${so.RiCellm.toFixed(0)} mΩ/élt · ${(so.Ri*1000).toFixed(0)} mΩ pack (${so.S}S)`]);mes.push(["Au repos",`${so.v1.toFixed(2)} V · ${so.i1.toFixed(2)} A${so.bt!=null?" · "+so.bt.toFixed(1)+" °C":""}`]);mes.push(["Sous charge ("+(so.load||"turbine")+")",`${so.v2.toFixed(2)} V · ${so.i2.toFixed(2)} A`]);}
+  const mesTable=mes.length?`<table class="rt"><tbody>${mes.map(r=>`<tr><td>${esc(r[0])}</td><td><b>${esc(String(r[1]))}</b></td></tr>`).join("")}</tbody></table><div class="see" style="margin-top:6px">${cyc}</div>`:`<div class="see">Aucune valeur batterie lue.</div>`;
+  let heroCls="mid",hero,analyse;
+  if(so){
+    const col=so.soh>=80?"var(--green)":so.soh>=55?"var(--amber)":"var(--red)";
+    heroCls=so.soh>=80?"ok":so.soh>=55?"mid":"hs";
+    const dash=(so.soh/100*264).toFixed(0);
+    hero=`<div class="sohgauge"><svg width="110" height="110"><circle cx="55" cy="55" r="38" fill="none" stroke="var(--line2)" stroke-width="10"/><circle cx="55" cy="55" r="38" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${(so.soh/100*238.8).toFixed(0)} 238.8" transform="rotate(-90 55 55)"/></svg><div class="lbl" style="position:absolute;inset:0;display:grid;place-content:center;text-align:center"><b style="color:${col};font:800 24px var(--sans)">${so.soh}%</b></div></div>
+      <div><div class="rhlab" style="color:${col}">${esc(so.label)}</div><div class="rhsub">R interne <b>${so.RiCellm.toFixed(0)} mΩ/élément</b> (${so.S}S) · chute <b>${((so.v1-so.v2)*1000).toFixed(0)} mV</b> sous Δ ${Math.abs(so.i2-so.i1).toFixed(2)} A · SOC ${so.soc!=null?so.soc+" %":"—"}</div></div>`;
+    analyse=`<div class="rbadvice"><b>Conseil technicien.</b> ${so.advice}</div>
+      <div class="rbnote" style="margin-top:8px">R interne = chute de tension ÷ hausse de courant sous charge <b>${esc(so.load||"turbine max")}</b> (neuve ≈ 25 mΩ, fin de vie ≈ 110 mΩ) — valeurs indicatives.${so.lowPrec?" <b>Précision réduite</b> : appel de courant faible sur ce modèle.":""}</div>`;
+  }else{
+    hero=`<div class="rhbig">🔋</div><div><div class="rhlab">Santé (SOH) non mesurée</div><div class="rhsub">Lancez « Mesurer la santé » avant d'éditer le rapport pour inclure la résistance interne et le SOH.</div></div>`;
+    analyse=`<div class="rbnote">Santé (SOH) non mesurée. Les valeurs ci-contre proviennent de la lecture « info&nbsp;-a ».</div>`;
+  }
+  return `<div class="report rpsheet">
+    ${rpBanner("Santé batterie")}
+    ${rpInfo(model,serial,nomad,tech,dstr,"Robot Dreame")}
+    <div class="rphero ${heroCls}" style="position:relative">${hero}</div>
+    <div class="rpcols">
+      <section class="rppanel"><h4>Données de la mesure</h4>${mesTable}</section>
+      <section class="rppanel"><h4>Analyse &amp; recommandation</h4>${analyse}</section>
     </div>
-    <div class="rbnote">Méthode : tension à vide comparée au tableau Li-ion ; résistance interne = chute de tension ÷ hausse de courant sous charge (cellule neuve ≈ 25 mΩ, fin de vie ≈ 110 mΩ). Valeurs indicatives, la documentation constructeur prime. Sur certains modèles (Aqua 10, Matrix, X40, X50, X60), le moteur d'aspiration ne démarre pas toujours pour la mesure : la santé est alors évaluée via une autre charge (brosses, serpillières ou rouleau).</div>
-    <div class="rblogo"><img src="${IMG.fnac}" alt="FNAC DARTY"><div class="rbthanks">Document remis par votre atelier SAV — merci de votre confiance.</div></div>
+    <div class="rpcare"><b>Préserver la batterie :</b> laissez le robot <b>rentrer à sa station</b> après chaque cycle et gardez la base <b>branchée et allumée</b> (charge d'entretien) ; évitez la <b>chaleur</b> (&gt; 40 °C) et le froid extrême ; faites de temps en temps une <b>charge complète</b> pour fiabiliser la jauge ; en stockage prolongé, rangez chargé à <b>~50 %</b>, station éteinte.</div>
+    ${rpFoot()}
   </div>`;
 }
 function printBatteryReport(){
@@ -2991,30 +3041,32 @@ function suctionReportHTML(){
   const model=($("fModel")&&$("fModel").value.trim())||"", serial=($("fSerial")&&$("fSerial").value.trim())||"", tech=($("fTech")&&$("fTech").value.trim())||"", nomad=($("fNomad")&&$("fNomad").value.trim())||"";
   const d=new Date();const dstr=d.toLocaleDateString("fr-FR")+" à "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
   const meta=[model||"Robot Dreame",serial,nomad?("NOMAD "+nomad):"",tech,dstr].filter(Boolean).map(esc).join(" · ");
-  const col=/✅/.test(s.label)?"#047857":/⚠️/.test(s.label)?"#b45309":"#cf3e3e";
-  return `<div class="report">
-    <div class="rhead"><div><h1 style="margin:0 0 2px">Performance d'aspiration</h1><div class="see">${meta}</div></div></div>
-    <div class="orient ${/✅/.test(s.label)?'ok':/⚠️/.test(s.label)?'mid':'hs'}"><span class="n12 ${/✅/.test(s.label)?'N1':'N2'}">${/✅/.test(s.label)?'OK':'!'}</span><span><b>${esc(s.label)}.</b></span></div>
-    <h3 style="margin:12px 0 6px">Mesures</h3>
-    <table class="rt"><tbody>
-      <tr><td>Aspiration ${s.meas!=null?"mesurée (manomètre)":"estimée (approximative)"}</td><td><b style="color:${col}">${s.pa} Pa</b></td></tr>
-      <tr><td>Aspiration max constructeur</td><td>${s.rated} Pa</td></tr>
-      <tr><td>Appel de courant turbine</td><td>${s.dI.toFixed(2)} A (repos ${s.i1.toFixed(2)} A → max ${s.i2.toFixed(2)} A)</td></tr>
-      ${s.rpm!=null?`<tr><td>Vitesse ventilateur (turbine)</td><td>${Math.round(s.rpm)} tr/min</td></tr>`:""}
-      ${s.battPct!=null?`<tr><td>Batterie (santé / charge)</td><td>${s.battPct} %${s.soc!=null?" · SOC "+s.soc+" %":""}</td></tr>`:""}
-    </tbody></table>
-    <div class="rbadvice"><b>Conseils d'entretien pour conserver une aspiration optimale :</b>
-      <ul style="margin:6px 0 0;padding-left:18px">
-        <li><b>Filtre</b> : nettoyez-le toutes les 2–3 semaines et remplacez-le tous les 3–6 mois (un filtre encrassé fait chuter l'aspiration).</li>
-        <li><b>Bac à poussière</b> : videz-le régulièrement, ne le laissez pas se remplir au-delà de la moitié.</li>
-        <li><b>Brosse principale et latérales</b> : retirez cheveux et fils enroulés.</li>
-        <li><b>Conduit d'air et entrée</b> : vérifiez qu'aucun bouchon n'obstrue le passage.</li>
-        <li><b>Joints et trappe du bac</b> : assurez-vous qu'ils ferment bien (une fuite d'air réduit la puissance).</li>
-        <li>Utilisez le robot avec un filtre <b>sec et propre</b> pour une puissance maximale.</li>
-      </ul>
+  const ok=/✅/.test(s.label),mid=/⚠️/.test(s.label);
+  const col=ok?"var(--green)":mid?"var(--amber)":"var(--red)";
+  const heroCls=ok?"ok":mid?"mid":"hs";
+  const ratio=s.rated?Math.round(s.pa/s.rated*100):null;
+  return `<div class="report rpsheet">
+    ${rpBanner("Performance d'aspiration",s.meas!=null?"Mesure au manomètre":"Estimation (sans manomètre)")}
+    ${rpInfo(model,serial,nomad,tech,dstr,"Robot Dreame")}
+    <div class="rphero ${heroCls}">
+      <div><div class="rhval" style="color:${col}">${s.pa}<small> Pa</small></div><div class="rhsub">${s.meas!=null?"mesurée au manomètre":"estimée ≈ approximative"}${ratio!=null?` · ${ratio} % des ${s.rated} Pa annoncés`:""}</div></div>
+      <div style="border-left:1px solid var(--line);padding-left:16px"><div class="rhlab" style="color:${col}">${esc(s.label)}</div><div class="rhsub">Courant turbine <b>${s.dI.toFixed(2)} A</b>${s.rpm!=null?` · <b>${Math.round(s.rpm)} tr/min</b>`:""}${s.battPct!=null?` · batterie <b>${s.battPct} %</b>`:""}</div></div>
     </div>
-    <div class="rbnote">${s.approx?"Valeur en Pa <b>estimée sans manomètre</b> (combine l'appel de courant de la turbine, sa vitesse de rotation et la santé de la batterie), mesurée en <b>mode d'aspiration maximum standard</b>. ":"Valeur en Pa mesurée au manomètre. "}Lorsqu'une fiche technique mentionne une « aspiration <b>VorMax</b> de X Pa », cela signifie simplement que l'appareil utilise la motorisation propriétaire Dreame pour atteindre ce niveau de dépression. « VorMax » désigne la <b>technologie d'aspiration haute performance de Dreame</b> : ce n'est pas une nouvelle unité de mesure physique, mais le système global combinant un moteur numérique rapide et une conception aérodynamique optimisée. La valeur annoncée correspond généralement à ce pic, l'estimation en usage courant est donc normalement un peu en dessous.</div>
-    <div class="rblogo"><img src="${IMG.fnac}" alt="FNAC DARTY"><div class="rbthanks">Document remis par votre atelier SAV — merci de votre confiance.</div></div>
+    <div class="rpcols">
+      <section class="rppanel"><h4>Données de la mesure</h4>
+        <table class="rt"><tbody>
+          <tr><td>Aspiration ${s.meas!=null?"mesurée (manomètre)":"estimée"}</td><td><b style="color:${col}">${s.pa} Pa</b></td></tr>
+          <tr><td>Aspiration max constructeur</td><td>${s.rated} Pa</td></tr>
+          <tr><td>Appel de courant turbine</td><td>${s.dI.toFixed(2)} A (repos ${s.i1.toFixed(2)} → max ${s.i2.toFixed(2)} A)</td></tr>
+          ${s.rpm!=null?`<tr><td>Vitesse ventilateur</td><td>${Math.round(s.rpm)} tr/min</td></tr>`:""}
+          ${s.battPct!=null?`<tr><td>Batterie (santé / charge)</td><td>${s.battPct} %${s.soc!=null?" · SOC "+s.soc+" %":""}</td></tr>`:""}
+        </tbody></table></section>
+      <section class="rppanel"><h4>Analyse &amp; méthode</h4>
+        <div class="rbadvice"><b>Conseil technicien.</b> ${s.advice}</div>
+        <div class="rbnote" style="margin-top:8px">${s.approx?"Pa <b>estimé sans manomètre</b> (courant turbine + vitesse + santé batterie), en <b>aspiration max standard</b>. ":"Pa mesuré au manomètre. "}« <b>VorMax</b> » est la technologie d'aspiration haute performance de Dreame (moteur numérique rapide + aérodynamique), pas une unité : la valeur annoncée correspond souvent à ce pic, l'usage courant est donc un peu en dessous.</div></section>
+    </div>
+    <div class="rpcare"><b>Conserver une bonne aspiration :</b> nettoyez le <b>filtre</b> toutes les 2–3 semaines (remplacement 3–6 mois) ; videz le <b>bac à poussière</b> ; retirez cheveux et fils des <b>brosses</b> ; vérifiez qu'aucun <b>bouchon</b> n'obstrue le conduit et que les <b>joints/trappe</b> ferment bien (une fuite d'air réduit la puissance).</div>
+    ${rpFoot()}
   </div>`;
 }
 function printSuctionReport(){
@@ -3173,19 +3225,23 @@ function descaleReportHTML(kind){
   const advice=isDrain
     ?`<b>Conseil.</b> Drainez le robot <b>avant tout transport, stockage prolongé ou envoi en magasin</b>, surtout en période de gel. Un circuit vidé évite les <b>fuites</b> et la formation de <b>tartre</b> dans la mini-pompe et les durites.`
     :`<b>Conseil.</b> Pour espacer les détartrages, privilégiez de l'<b>eau déminéralisée</b> dans le réservoir. Refaites un détartrage <b>tous les 1 à 2 mois</b> en usage courant (plus souvent en eau très calcaire). Après chaque détartrage, essuyez les contacts/joints.`;
-  return `<div class="report">
-    <div class="rhead"><div><h1 style="margin:0 0 2px">${isDrain?"Drainage":"Détartrage"} — ${esc(cfg.dname)}</h1>
-      <div class="see">${meta}</div></div></div>
-    <div class="orient ok"><span class="n12 N1">OK</span><span>${orient}</span></div>
-    <h3 style="margin:12px 0 6px">Constat</h3>
-    <table class="rt"><tbody>
-      <tr><td>Appareil</td><td>${esc(cfg.dname.charAt(0).toUpperCase()+cfg.dname.slice(1))} Dreame${model?" — "+esc(model):""}</td></tr>
-      <tr><td>Circuit traité</td><td>${esc(cfg.circuit)}</td></tr>
-      ${specRows}
-    </tbody></table>
-    <div class="rbadvice">${advice}</div>
+  return `<div class="report rpsheet">
+    ${rpBanner((isDrain?"Drainage":"Détartrage")+" — "+cfg.dname,isDrain?"Vidange du circuit d'eau":"Nettoyage du circuit d'eau")}
+    ${rpInfo(model,serial,nomad,tech,dstr,"Dreame — "+cfg.dname)}
+    <div class="rphero ok"><div class="rhbig">${isDrain?"💧":"🚿"}</div><div><div class="rhlab" style="color:var(--green)">✅ Opération réalisée</div><div class="rhsub">${esc(cfg.circuit)} — ${isDrain?"circuit vidé, prêt pour transport / stockage":"circuit détartré, bon fonctionnement rétabli"} · durée ≈ <b>${durMin} min</b></div></div></div>
+    <div class="rpcols">
+      <section class="rppanel"><h4>Constat de l'intervention</h4>
+        <table class="rt"><tbody>
+          <tr><td>Appareil</td><td>${esc(cfg.dname.charAt(0).toUpperCase()+cfg.dname.slice(1))} Dreame${model?" — "+esc(model):""}</td></tr>
+          <tr><td>Circuit traité</td><td>${esc(cfg.circuit)}</td></tr>
+          ${specRows}
+        </tbody></table></section>
+      <section class="rppanel"><h4>Déroulé &amp; conseil</h4>
+        <div class="rbnote">${orient}</div>
+        <div class="rbadvice" style="margin-top:8px">${advice}</div></section>
+    </div>
     ${careCalHTML()}
-    <div class="rblogo"><img src="${IMG.fnac}" alt="FNAC DARTY"><div class="rbthanks">Document remis par votre atelier SAV — merci de votre confiance.</div></div>
+    ${rpFoot()}
   </div>`;
 }
 function printDescaleReport(kind){
@@ -3462,6 +3518,17 @@ $("histPDF")&&$("histPDF").addEventListener("click",()=>{const html=histReportHT
 $("histClear")&&$("histClear").addEventListener("click",e=>histClearAll(e.currentTarget));
 $("histSync")&&$("histSync").addEventListener("click",()=>{showTab("stats");setTimeout(()=>{const s=$("syncStatus");if(s)s.scrollIntoView({block:"center",behavior:"smooth"});},60);});
 /* ----- Export PDF de l'historique (impression isolée via #printArea) ----- */
+function rpBanner(type,sub){
+  return `<div class="rpban"><div class="rpbL"><img src="${IMG.fnac}" alt="FNAC DARTY" class="rpflogo"><div class="rpbt"><b>DREAME SAV studio</b><span>Atelier SAV PEM — Fnac Darty</span></div></div><div class="rpbR"><div class="rptype">${esc(type)}</div>${sub?`<div class="rpsub">${esc(sub)}</div>`:""}</div></div>`;
+}
+function rpInfo(model,serial,nomad,tech,dstr,devName){
+  const cells=[["Appareil",model||devName||"Robot Dreame"],["N° de série",serial||"—"],["NOMAD",nomad||"—"],["Technicien",tech||"—"],["Date de la mesure",dstr]];
+  return `<div class="rpinfo">${cells.map(c=>`<div><span>${esc(c[0])}</span><b>${esc(c[1])}</b></div>`).join("")}</div>`;
+}
+function rpFoot(){
+  const v=(document.querySelector(".copyv")||{}).textContent||"";
+  return `<div class="rpfoot"><span>Document remis par votre atelier SAV — merci de votre confiance. Usage professionnel ; reproduction interdite hors de ce cadre.</span><span class="rpv">DREAME SAV studio${v?" · "+v:""}</span></div>`;
+}
 function careCalHTML(){
   return `<div class="carecal"><div class="cch">🗓️ Calendrier d'entretien — pour éviter les pannes et faire durer votre robot</div>
   <table><tbody>
