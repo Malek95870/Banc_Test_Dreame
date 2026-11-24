@@ -1645,7 +1645,7 @@ td.dcell .trd{color:var(--teal);font-size:.86em;margin-top:3px;display:block;lin
   <span id="sbMode"></span>
   <span id="sbRes"></span>
   <span class="conflock">🔒 Usage professionnel strict — ne pas diffuser hors du groupe FNAC DARTY</span>
-  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v74.0</span></span>
+  <span class="credit"><span class="sp">© 2026 Malek Tahri — référent PEM Bezons · tous droits réservés</span><span class="copyv">v75.0</span></span>
 </div>
 </div>
 <div class="descmodal noprint" id="descaleModal" hidden><div class="descbox" role="dialog" aria-modal="true" aria-labelledby="descTitle"><button class="descclose" id="descClose" type="button" aria-label="Fermer">✕</button><div id="descBody"></div></div></div>
@@ -2921,7 +2921,7 @@ function batteryReportHTML(){
     const col=so.soh>=80?"var(--green)":so.soh>=55?"var(--amber)":"var(--red)";
     heroCls=so.soh>=80?"ok":so.soh>=55?"mid":"hs";
     const dash=(so.soh/100*264).toFixed(0);
-    hero=`<div class="sohgauge"><svg width="110" height="110"><circle cx="55" cy="55" r="38" fill="none" stroke="var(--line2)" stroke-width="10"/><circle cx="55" cy="55" r="38" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${(so.soh/100*238.8).toFixed(0)} 238.8" transform="rotate(-90 55 55)"/></svg><div class="lbl" style="position:absolute;inset:0;display:grid;place-content:center;text-align:center"><b style="color:${col};font:800 24px var(--sans)">${so.soh}%</b></div></div>
+    hero=`<div class="sohgauge"><svg width="132" height="132"><circle cx="66" cy="66" r="42" fill="none" stroke="var(--line2)" stroke-width="11"/><circle cx="66" cy="66" r="42" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${(so.soh/100*264).toFixed(0)} 264"/></svg><div class="lbl"><b style="color:${col}">${so.soh}%</b><span>SOH</span></div></div>
       <div><div class="rhlab" style="color:${col}">${esc(so.label)}</div><div class="rhsub">R interne <b>${so.RiCellm.toFixed(0)} mΩ/élément</b> (${so.S}S) · chute <b>${((so.v1-so.v2)*1000).toFixed(0)} mV</b> sous Δ ${Math.abs(so.i2-so.i1).toFixed(2)} A · SOC ${so.soc!=null?so.soc+" %":"—"}</div></div>`;
     analyse=`<div class="rbadvice"><b>Conseil technicien.</b> ${so.advice}</div>
       <div class="rbnote" style="margin-top:8px">R interne = chute de tension ÷ hausse de courant sous charge <b>${esc(so.load||"turbine max")}</b> (neuve ≈ 25 mΩ, fin de vie ≈ 110 mΩ) — valeurs indicatives.${so.lowPrec?" <b>Précision réduite</b> : appel de courant faible sur ce modèle.":""}</div>`;
